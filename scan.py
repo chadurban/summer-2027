@@ -37,12 +37,12 @@ DESTS = [
     {"key":"brazil", "name":"Brazil · Vitória",     "region":"South America", "gw":{"GRU","GIG","VCP","CNF"},    "hubs":EAST_US, "hop":"+ VIX hop (~$60–130)"},
     {"key":"iberia", "name":"Iberia · Lisbon/Madrid","region":"Europe",        "gw":{"LIS","OPO","MAD","SVQ"},    "hubs":EAST_US, "hop":None},
 ]
-PROGRAMS = ["aeroplan","united","virginatlantic","flyingblue","delta","aeromexico","singapore","lifemiles","american","alaska"]
+PROGRAMS = ["aeroplan","united","virginatlantic","flyingblue","delta","aeromexico","singapore","lifemiles","american","alaska","turkish"]
 CABKEY = {"business":"J","premium":"W"}
 MAX_MILES = {"business":200000,"premium":150000}     # drop non-saver dynamic garbage (one-way)
-BOOK_EASE = {"united":1,"aeroplan":1,"virginatlantic":1,"flyingblue":1,"delta":1,"singapore":1,
+BOOK_EASE = {"united":1,"aeroplan":1,"turkish":1,"virginatlantic":1,"flyingblue":1,"delta":1,"singapore":1,
              "aeromexico":2,"american":3,"alaska":3,"lifemiles":3}
-BOOK_VIA = {"aeroplan":"UR/MR → Aeroplan","united":"UR → United","delta":"UR → Virgin (Delta)",
+BOOK_VIA = {"aeroplan":"UR/MR → Aeroplan","united":"UR → United","turkish":"MR → Turkish","delta":"UR → Virgin (Delta)",
             "virginatlantic":"UR/MR → Virgin Atlantic","flyingblue":"UR/MR → Flying Blue","singapore":"UR/MR → Singapore",
             "aeromexico":"UR → Flying Blue/Virgin","american":"AA miles","alaska":"Alaska miles","lifemiles":"LifeMiles (not UR/MR)"}
 STOP_PEN, TIER_PEN = 20000, {1:0,2:30000,3:300000}
