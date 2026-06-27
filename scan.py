@@ -35,7 +35,7 @@ EAST_US = {"CHS","ATL","JFK","EWR","IAD","IAH","ORD","BOS","CLT","DFW","DTW","PH
 DESTS = [
     {"key":"japan",  "name":"Japan / Korea",        "region":"Asia",          "gw":{"ICN","NRT","HND"},          "hubs":ALL_US,  "hop":None},
     {"key":"brazil", "name":"Brazil · Vitória",     "region":"South America", "gw":{"GRU","GIG","VCP","CNF"},    "hubs":EAST_US, "hop":"+ VIX hop (~$60–130)"},
-    {"key":"iberia", "name":"Iberia · Lisbon/Madrid","region":"Europe",        "gw":{"LIS","OPO","MAD","SVQ"},    "hubs":EAST_US, "hop":None},
+    {"key":"iberia", "name":"Iberia · Lisbon/Madrid/Barcelona","region":"Europe",        "gw":{"LIS","OPO","MAD","SVQ","BCN"},    "hubs":EAST_US, "hop":None},
 ]
 PROGRAMS = ["aeroplan","united","virginatlantic","flyingblue","delta","aeromexico","singapore","lifemiles","american","alaska","turkish"]
 CABKEY = {"business":"J","premium":"W"}
