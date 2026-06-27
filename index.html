@@ -3,95 +3,188 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Summer 2027 — Destination Comparison</title>
+<title>2027 Trips — Where To?</title>
 <style>
   :root{--bg:#0f1117;--surface:#1a1d27;--surface2:#242836;--border:#2e3347;--text:#e4e6ed;--dim:#8b8fa3;
-        --accent:#2ecc71;--accent2:#f9ca24;--blue:#54a0ff;--red:#ff6b6b;}
+        --accent:#2ecc71;--accent2:#f9ca24;--blue:#54a0ff;--red:#ff6b6b;--violet:#a55eea;}
   *{margin:0;padding:0;box-sizing:border-box;}
   body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;}
-  .wrap{max-width:880px;margin:0 auto;padding:16px;}
-  header{text-align:center;padding:22px 0 8px;}
-  header h1{font-size:1.45rem;background:linear-gradient(135deg,var(--accent),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px;}
-  header .sub{color:var(--dim);font-size:0.84rem;}
-  .updated{text-align:center;color:var(--dim);font-size:0.72rem;margin:4px 0 14px;}
-  .note{background:var(--surface2);border:1px solid var(--border);border-left:3px solid var(--accent2);border-radius:10px;padding:11px 13px;font-size:0.8rem;color:var(--dim);line-height:1.5;margin-bottom:16px;}
-  .toggle{display:flex;gap:8px;justify-content:center;margin-bottom:16px;}
-  .toggle button{padding:9px 18px;border:1px solid var(--border);border-radius:999px;background:var(--surface);color:var(--dim);font-size:0.84rem;font-weight:600;cursor:pointer;min-height:42px;}
-  .toggle button.active{background:var(--accent);color:#07210f;border-color:var(--accent);}
+  .wrap{max-width:920px;margin:0 auto;padding:16px;}
+  header{text-align:center;padding:20px 0 6px;}
+  header h1{font-size:1.4rem;background:linear-gradient(135deg,var(--accent),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:3px;}
+  header .sub{color:var(--dim);font-size:0.82rem;}
+  .updated{text-align:center;color:var(--dim);font-size:0.72rem;margin:4px 0 12px;}
+  .controls{display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap;margin-bottom:14px;font-size:0.82rem;color:var(--dim);}
+  .controls .seg{display:inline-flex;gap:4px;background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:3px;}
+  .controls .seg button{border:none;background:none;color:var(--dim);padding:6px 12px;border-radius:999px;font-size:0.8rem;font-weight:600;cursor:pointer;min-height:34px;}
+  .controls .seg button.active{background:var(--accent);color:#07210f;}
+  .controls input[type=range]{vertical-align:middle;}
+  .nav{display:flex;gap:6px;overflow-x:auto;padding-bottom:10px;-webkit-overflow-scrolling:touch;}
+  .nav button{flex-shrink:0;padding:9px 15px;border:1px solid var(--border);border-radius:999px;background:var(--surface);color:var(--dim);font-size:0.8rem;font-weight:600;cursor:pointer;min-height:42px;}
+  .nav button.active{background:var(--accent);color:#07210f;border-color:var(--accent);}
   .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:14px;}
-  .dn{font-size:1.08rem;font-weight:700;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
-  .dn .gw{font-size:0.72rem;color:var(--dim);font-weight:500;}
-  .row{display:grid;grid-template-columns:96px 1fr;gap:12px;align-items:start;padding:9px 0;border-top:1px solid var(--border);}
-  .cab{font-size:0.74rem;text-transform:uppercase;letter-spacing:0.04em;color:var(--dim);font-weight:600;padding-top:3px;}
-  .opt b{font-size:1.18rem;color:var(--accent);font-variant-numeric:tabular-nums;}
-  .opt.nour b{color:var(--accent2);}
-  .opt .u{font-size:0.72rem;color:var(--dim);}
-  .opt .sub2{font-size:0.74rem;color:var(--dim);}
-  .opt .rt{font-size:0.78rem;color:var(--text);}
-  .badge{display:inline-block;font-size:0.64rem;font-weight:700;padding:2px 7px;border-radius:999px;background:var(--accent);color:#07210f;margin-left:6px;vertical-align:middle;}
-  .none{color:var(--dim);font-size:0.84rem;font-style:italic;}
-  .foot{font-size:0.74rem;color:var(--dim);line-height:1.6;margin-top:18px;padding:12px;background:var(--surface2);border-radius:10px;}
-  .muted{color:var(--dim);text-align:center;padding:30px;}
+  .card h2{font-size:1.02rem;margin-bottom:4px;}
+  .card .h-sub{font-size:0.76rem;color:var(--dim);margin-bottom:12px;}
+  table{width:100%;border-collapse:collapse;font-size:0.82rem;}
+  th{text-align:left;color:var(--dim);font-weight:500;padding:8px 6px;border-bottom:1px solid var(--border);white-space:nowrap;font-size:0.74rem;}
+  td{padding:9px 6px;border-bottom:1px solid var(--border);vertical-align:middle;}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
+  tr.win td{background:rgba(46,204,113,0.07);}
+  .tot{font-weight:700;font-size:0.95rem;color:var(--accent);}
+  .badge{display:inline-block;font-size:0.62rem;font-weight:700;padding:2px 7px;border-radius:999px;background:var(--accent);color:#07210f;margin-left:6px;}
+  .pill{display:inline-block;font-size:0.64rem;padding:1px 7px;border-radius:999px;border:1px solid var(--border);color:var(--dim);}
+  .line{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);font-size:0.86rem;}
+  .line:last-child{border-bottom:none;}
+  .line .lbl{color:var(--dim);}
+  .line .val{font-variant-numeric:tabular-nums;}
+  .grand{display:flex;justify-content:space-between;padding:11px 0 2px;font-weight:700;font-size:1.05rem;}
+  .grand .val{color:var(--accent);}
+  .muted{color:var(--dim);font-size:0.84rem;}
+  .note{background:var(--surface2);border-radius:10px;border-left:3px solid var(--accent2);padding:10px 12px;font-size:0.78rem;color:var(--dim);line-height:1.5;margin-top:12px;}
+  .flightbox{background:var(--surface2);border-radius:10px;padding:12px 14px;margin-bottom:14px;}
+  .flightbox .fl{font-size:0.84rem;padding:5px 0;}
+  .flightbox b{color:var(--text);}
+  .ur{color:var(--accent);} .nour{color:var(--accent2);}
+  .section{display:none;} .section.active{display:block;}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <h1>✈️ Summer 2027 — Where To?</h1>
-    <div class="sub">Japan · Brazil (Vitória) · Iberia — best business + premium award, head to head</div>
+    <h1>🗺️ 2027 Trips — Where To?</h1>
+    <div class="sub">Total trip cost, head to head · summer adventure vs. beach week · anchored to your Brazil 2026 spend</div>
   </header>
   <div class="updated" id="updated"></div>
-  <div class="note" id="loadnote"></div>
-  <div class="toggle" id="toggle">
-    <button data-p="3" class="active">3 travelers</button>
-    <button data-p="4">4 travelers</button>
+
+  <div class="controls">
+    <span>Travelers
+      <span class="seg" id="partySeg"><button data-p="3" class="active">3</button><button data-p="4">4</button></span>
+    </span>
+    <span>Nights <b id="nightsLbl">10</b>
+      <input type="range" id="nights" min="7" max="15" value="10">
+    </span>
+    <span>Flights
+      <span class="seg" id="paySeg"><button data-pay="points" class="active">on points</button><button data-pay="cash">as cash</button></span>
+    </span>
   </div>
-  <div id="cards"><div class="muted">Loading…</div></div>
-  <div class="foot" id="foot"></div>
+
+  <div class="nav" id="nav"></div>
+  <div id="body"></div>
 </div>
 
 <script id="cmp-data" type="application/json">{"lastUpdated":"2026-06-27T02:16:34Z","window":"early\u2013mid June 2027 \u00b7 7\u201315 nights","dests":[{"key":"japan","name":"Japan / Korea","hop":null,"gateways":"HND/ICN/NRT","cabins":{"business":{"n":8,"p3":null,"p4":null},"premium":{"n":3,"p3":{"ow":140500,"route":"JFK\u2192ICN (1-stop)","seats":9,"date":"2027-06-03","direct":false,"airlines":"AF","via":"UR/MR \u2192 Flying Blue","ur":true},"p4":{"ow":140500,"route":"JFK\u2192ICN (1-stop)","seats":9,"date":"2027-06-03","direct":false,"airlines":"AF","via":"UR/MR \u2192 Flying Blue","ur":true}}}},{"key":"brazil","name":"Brazil \u00b7 Vit\u00f3ria","hop":"+ VIX hop (~$60\u2013130)","gateways":"CNF/GIG/GRU/VCP","cabins":{"business":{"n":0,"p3":null,"p4":null},"premium":{"n":0,"p3":null,"p4":null}}},{"key":"iberia","name":"Iberia \u00b7 Lisbon/Madrid","hop":null,"gateways":"LIS/MAD/OPO/SVQ","cabins":{"business":{"n":8,"p3":{"ow":130000,"route":"BOS\u2192LIS (1-stop)","seats":7,"date":"2027-06-08","direct":false,"airlines":"AF","via":"UR/MR \u2192 Flying Blue","ur":true},"p4":{"ow":130000,"route":"BOS\u2192LIS (1-stop)","seats":7,"date":"2027-06-08","direct":false,"airlines":"AF","via":"UR/MR \u2192 Flying Blue","ur":true}},"premium":{"n":8,"p3":{"ow":62000,"route":"BOS\u2192MAD (1-stop)","seats":3,"date":"2027-06-08","direct":false,"airlines":"AF","via":"UR/MR \u2192 Flying Blue","ur":true},"p4":{"ow":62500,"route":"BOS\u2192MAD (1-stop)","seats":9,"date":"2027-06-01","direct":false,"airlines":"AF","via":"UR/MR \u2192 Flying Blue","ur":true}}}}],"errors":[]}</script>
 <script>
-const D = (()=>{ try{ return JSON.parse(document.getElementById('cmp-data').textContent||'{}'); }catch(e){ return {}; } })();
-let party = 3;
-const k = n => n>=1000 ? (n/1000).toFixed(n>=100000?0:0)+'K' : String(n);
+const LIVE = (()=>{ try{ return JSON.parse(document.getElementById('cmp-data').textContent||'{}'); }catch(e){ return {}; } })();
+// live award by destination key (from the daily scanner: japan/brazil/iberia)
+const AWARD = {}; (LIVE.dests||[]).forEach(d=>AWARD[d.key]=d);
 
-function render(){
-  const cards = document.getElementById('cards');
-  const dests = D.dests || [];
-  if(!dests.length){ cards.innerHTML = '<div class="muted">First scan pending — runs daily and fills in here.</div>'; return; }
-  // cheapest total per cabin (for the ★ leader badge)
-  const best = {business:Infinity, premium:Infinity};
-  dests.forEach(d=>['business','premium'].forEach(cab=>{
-    const pk = (d.cabins[cab]||{})[party===3?'p3':'p4'];
-    if(pk) best[cab] = Math.min(best[cab], pk.ow*2*party);
-  }));
-  const cell = (cabObj, cab) => {
-    const pk = (cabObj||{})[party===3?'p3':'p4'];
-    if(!pk) return '<span class="none">none in window yet</span>';
-    const rt = pk.ow*2, tot = rt*party;
-    const leader = tot===best[cab] ? '<span class="badge">★ cheapest</span>' : '';
-    return `<div class="opt ${pk.ur?'':'nour'}"><b>${k(tot)}</b> <span class="u">pts total${leader}</span>
-      <span class="sub2">(${k(pk.ow)} ow · ~${k(rt)} RT/pp)</span><br>
-      <span class="rt">${pk.route} · ${pk.seats} seat${pk.seats==1?'':'s'} · ${pk.via}${pk.ur?'':' · ⚠ not from your UR/MR'}</span></div>`;
-  };
-  cards.innerHTML = dests.map(d=>`
-    <div class="card">
-      <div class="dn">${d.name}<span class="gw">${d.gateways}${d.hop?' '+d.hop:''}</span></div>
-      <div class="row"><div class="cab">Business</div>${cell(d.cabins.business,'business')}</div>
-      <div class="row"><div class="cab">Premium econ</div>${cell(d.cabins.premium,'premium')}</div>
-    </div>`).join('');
+// --- cost model: anchored to Brazil 2026 actuals (food ~$115/day family; Vitória lodging ~$0–90;
+//     real premium-econ ~$2,165/pp). Beach nightly from the resort-lens research. All editable estimates. ---
+const D = {
+  japan:    {name:"Japan / Korea", type:"summer", emoji:"🗾", flightPP:1900, lodgeN:280, foodD:160, exc:700, ground:300,
+             note:"Tokyo + Kyoto. High lodging + food; flights mid. Premium award space loads over the coming weeks."},
+  brazil:   {name:"Brazil · Vitória", type:"summer", emoji:"🇧🇷", flightPP:2165, lodgeN:90, foodD:115, exc:400, ground:200, lodgeAlt:0,
+             note:"With your brother (4). Real Jun-2026 anchor. Lodging drops to ~$0 if Kami's parents host — toggle below. Cheapest non-flight trip."},
+  iberia:   {name:"Iberia · Lisbon/Madrid", type:"summer", emoji:"🇵🇹", flightPP:1400, lodgeN:190, foodD:110, exc:500, ground:250,
+             note:"Lisbon/Porto/Madrid. Cheapest business award (~75–88K saver) AND serious business cash deals via the Chase portal — flights are the bargain here."},
+  aruba:    {name:"Aruba (beach)", type:"beach", emoji:"🏖️", flightPP:700, lodgeN:570, foodD:185, exc:400, ground:320,
+             note:"⭐ Truest West Bay replica — Palm Beach resort strip, walkable dining, shortest flight. Cheapest flights, priciest lodging."},
+  crete:    {name:"Crete · Chania (beach)", type:"beach", emoji:"🏖️", flightPP:1100, lodgeN:330, foodD:105, exc:400, ground:300,
+             note:"⭐ Best European resort match — Platanias belt + walkable tavernas. Domes Zeen (kids free) keeps lodging reasonable."},
+  sardinia: {name:"Sardinia · Chia (beach)", type:"beach", emoji:"🏖️", flightPP:1200, lodgeN:450, foodD:125, exc:350, ground:300,
+             note:"⭐ Top resorts (Chia Laguna / Forte Village) but self-contained, lighter on walk-to-dining."},
+};
+const ORDER = ["japan","brazil","iberia","aruba","crete","sardinia"];
+
+let party = 3, nights = 10, pay = "points";
+
+const $ = s => document.querySelector(s);
+const money = n => '$' + Math.round(n).toLocaleString();
+const k = n => n>=1000 ? (n/1000).toFixed(0)+'K' : String(n);
+
+function lodge(d){ return (pay==='points' && false) ? 0 : (d._freeLodge ? 0 : d.lodgeN); }
+function total(key){
+  const d = D[key];
+  const lodgeN = d._freeLodge ? 0 : d.lodgeN;
+  const flights = pay==='cash' ? d.flightPP*party : 0;   // on points => $0 cash to flights
+  const onground = lodgeN*nights + d.foodD*nights + d.exc + d.ground;
+  return { flights, lodging:lodgeN*nights, food:d.foodD*nights, exc:d.exc, ground:d.ground, onground, grand: flights+onground,
+           flightValue:d.flightPP*party };
 }
 
-document.querySelectorAll('#toggle button').forEach(b=>b.addEventListener('click',()=>{
-  document.querySelectorAll('#toggle button').forEach(x=>x.classList.remove('active'));
-  b.classList.add('active'); party = +b.dataset.p; render();
-}));
+function awardLine(key){
+  const a = AWARD[key];
+  if(!a) return '<div class="fl muted">Flights: estimate ' + money(D[key].flightPP) + '/pp round-trip (cash). Not on the daily award scanner.</div>';
+  const cell = (cabObj, cab) => {
+    const pk = (cabObj||{})[party===3?'p3':'p4'];
+    if(!pk) return `<span class="muted">${cab}: loading (windows opening)</span>`;
+    const rt = pk.ow*2, tot = rt*party;
+    return `<b>${cab}</b>: ${k(tot)} pts <span class="muted">(${k(pk.ow)} ow · ${pk.route} · ${pk.seats} st · <span class="${pk.ur?'ur':'nour'}">${pk.via}</span>)</span>`;
+  };
+  return `<div class="fl">✈️ ${cell(a.cabins.business,'Business')}</div><div class="fl">✈️ ${cell(a.cabins.premium,'Premium')}</div>
+          <div class="fl muted">Est. cash-equiv ${money(D[key].flightPP)}/pp RT · used in the total when "as cash" is selected.</div>`;
+}
 
-document.getElementById('updated').textContent = D.lastUpdated ? 'Updated '+new Date(D.lastUpdated).toLocaleString()+' · '+(D.window||'') : '';
-document.getElementById('loadnote').innerHTML = '🌱 <b>Jun 2027 is ~12 months out — award windows are just opening.</b> Only Flying Blue (AF/KL) has loaded so far, so most cells say "none yet." This rescans daily; as United, Aeroplan, Delta and ANA windows roll open over the next few weeks, the cells fill in and prices drop toward saver levels (the control scan showed Iberia business hitting ~75–88K).';
-document.getElementById('foot').innerHTML = '<b>How to read it:</b> "pts total" = round-trip award miles for the whole party (one-way × 2 × travelers — return windows aren\'t open yet, so RT is estimated as 2× the live one-way). Green = bookable from your Chase UR / Amex MR; gold ⚠ = needs miles you don\'t hold. Brazil adds a cheap VIX hop on top. Cash comparison turns on once Jun-2027 fares go on sale (~Aug 2026). 💡 <b>Lisbon watch:</b> business cash deals to LIS run cheap (BOS→LIS ~$3,100 RT via Azores/TAP). Paid with UR via the Chase portal at up to 2¢ Boost (~156K UR), that rivals the saver award but is a confirmed ticket that earns miles and is always available. Could be the Lisbon play.';
-render();
+function renderDest(key){
+  const d = D[key], t = total(key);
+  const freeToggle = key==='brazil'
+    ? `<label style="font-size:0.8rem;color:var(--dim);display:block;margin-top:8px;cursor:pointer"><input type="checkbox" id="freeLodge" ${d._freeLodge?'checked':''}> Kami's parents host → lodging $0</label>` : '';
+  $('#body').innerHTML = `
+    <div class="card">
+      <h2>${d.emoji} ${d.name} <span class="pill">${d.type==='summer'?'summer adventure':'beach week'}</span></h2>
+      <div class="h-sub">${nights} nights · ${party} travelers · flights ${pay==='points'?'on points ($0 cash)':'as cash'}</div>
+      <div class="flightbox">${awardLine(key)}</div>
+      <div class="line"><span class="lbl">Flights ${pay==='points'?'(paid with points)':'(cash, '+party+' pax)'}</span><span class="val">${pay==='points'?'$0 cash':money(t.flights)}</span></div>
+      <div class="line"><span class="lbl">Lodging · ${money(d._freeLodge?0:d.lodgeN)}/night × ${nights}</span><span class="val">${money(t.lodging)}</span></div>
+      <div class="line"><span class="lbl">Food · ${money(d.foodD)}/day × ${nights}</span><span class="val">${money(t.food)}</span></div>
+      <div class="line"><span class="lbl">Excursions</span><span class="val">${money(t.exc)}</span></div>
+      <div class="line"><span class="lbl">Ground / transport</span><span class="val">${money(t.ground)}</span></div>
+      <div class="grand"><span>${pay==='points'?'Cash out-of-pocket':'Total trip cost'}</span><span class="val">${money(t.grand)}</span></div>
+      ${freeToggle}
+      <div class="note">${d.note}${pay==='points'?' <b>Flights on points</b> → the number above is cash for lodging/food/excursions only; flight value is ~'+money(t.flightValue)+'.':''}</div>
+    </div>`;
+  if(key==='brazil'){ const c=$('#freeLodge'); if(c) c.addEventListener('change',()=>{ D.brazil._freeLodge=c.checked; renderDest('brazil'); }); }
+}
+
+function renderSummary(){
+  const rows = ORDER.map(key=>({key, d:D[key], t:total(key)})).sort((a,b)=>a.t.grand-b.t.grand);
+  const min = rows[0].t.grand;
+  $('#body').innerHTML = `
+    <div class="card">
+      <h2>🏁 Best Value — ${pay==='points'?'cash out-of-pocket':'total trip cost'}</h2>
+      <div class="h-sub">${nights} nights · ${party} travelers · flights ${pay==='points'?'on points':'paid cash'} · ranked cheapest first</div>
+      <table><thead><tr><th>Destination</th><th>Type</th><th class="num">Lodging</th><th class="num">Food</th><th class="num">Other</th><th class="num">Flights</th><th class="num">${pay==='points'?'Cash o.o.p.':'Total'}</th></tr></thead>
+      <tbody>${rows.map(r=>`<tr class="${r.t.grand===min?'win':''}">
+        <td><b>${r.d.emoji} ${r.d.name.split(' · ')[0].replace(' (beach)','')}</b>${r.t.grand===min?'<span class="badge">★ cheapest</span>':''}</td>
+        <td><span class="pill">${r.d.type==='summer'?'adventure':'beach'}</span></td>
+        <td class="num">${money(r.t.lodging)}</td>
+        <td class="num">${money(r.t.food)}</td>
+        <td class="num">${money(r.t.exc+r.t.ground)}</td>
+        <td class="num">${pay==='points'?'<span class="ur">pts</span>':money(r.t.flights)}</td>
+        <td class="num tot">${money(r.t.grand)}</td></tr>`).join('')}</tbody></table>
+      <div class="note">Costs anchored to your <b>real Brazil 2026 spend</b> (food ~$115/day, Vitória lodging ~$0–90) and the resort-lens research for the beach picks — all editable estimates. <b>"On points"</b> shows cash out-of-pocket with flights covered by UR/MR (flight value still differs by destination — see each tab); <b>"as cash"</b> adds estimated flight cash so you can compare apples to apples. Live award space for Japan/Brazil/Iberia updates daily; beach + cash fill in as Jun-2027 inventory loads.</div>
+    </div>`;
+}
+
+let current = 'summary';
+function render(){ current==='summary' ? renderSummary() : renderDest(current); }
+
+function buildNav(){
+  const items = [['summary','🏁 Summary'], ...ORDER.map(key=>[key, D[key].emoji+' '+D[key].name.split(' · ')[0].split(' (')[0]])];
+  $('#nav').innerHTML = items.map(([key,label])=>`<button data-k="${key}" class="${key===current?'active':''}">${label}</button>`).join('');
+  document.querySelectorAll('#nav button').forEach(b=>b.addEventListener('click',()=>{
+    current=b.dataset.k; document.querySelectorAll('#nav button').forEach(x=>x.classList.remove('active')); b.classList.add('active'); render();
+  }));
+}
+document.querySelectorAll('#partySeg button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#partySeg button').forEach(x=>x.classList.remove('active')); b.classList.add('active'); party=+b.dataset.p; render();
+}));
+document.querySelectorAll('#paySeg button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#paySeg button').forEach(x=>x.classList.remove('active')); b.classList.add('active'); pay=b.dataset.pay; render();
+}));
+$('#nights').addEventListener('input', e=>{ nights=+e.target.value; $('#nightsLbl').textContent=nights; render(); });
+$('#updated').textContent = LIVE.lastUpdated ? 'Flight data updated '+new Date(LIVE.lastUpdated).toLocaleString() : '';
+buildNav(); render();
 </script>
 </body>
 </html>
