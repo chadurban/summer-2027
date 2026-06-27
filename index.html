@@ -81,17 +81,17 @@ const AWARD = {}; (LIVE.dests||[]).forEach(d=>AWARD[d.key]=d);
 // --- cost model: anchored to Brazil 2026 actuals (food ~$115/day family; Vitória lodging ~$0–90;
 //     real premium-econ ~$2,165/pp). Beach nightly from the resort-lens research. All editable estimates. ---
 const D = {
-  japan:    {name:"Japan / Korea", type:"summer", emoji:"🗾", flightPP:4800, lodgeN:280, foodD:160, exc:700, ground:300,
+  japan:    {name:"Japan / Korea", type:"summer", emoji:"🗾", flightPP:5800, lodgeN:280, foodD:160, exc:700, ground:300,
              note:"Tokyo + Kyoto. High lodging + food; flights mid. Premium award space loads over the coming weeks."},
-  brazil:   {name:"Brazil · Vitória", type:"summer", emoji:"🇧🇷", flightPP:4200, lodgeN:90, foodD:115, exc:400, ground:200, lodgeAlt:0,
+  brazil:   {name:"Brazil · Vitória", type:"summer", emoji:"🇧🇷", flightPP:5000, lodgeN:90, foodD:115, exc:400, ground:200, lodgeAlt:0,
              note:"With your brother (4). Real Jun-2026 anchor. Lodging drops to ~$0 if Kami's parents host — toggle below. Cheapest non-flight trip."},
-  iberia:   {name:"Iberia · Lisbon/Madrid", type:"summer", emoji:"🇵🇹", flightPP:3500, lodgeN:190, foodD:110, exc:500, ground:250,
+  iberia:   {name:"Iberia · Lisbon/Madrid", type:"summer", emoji:"🇵🇹", flightPP:5100, lodgeN:190, foodD:110, exc:500, ground:250,
              note:"Lisbon/Porto/Madrid. Cheapest business award (~75–88K saver) AND serious business cash deals via the Chase portal — flights are the bargain here."},
-  aruba:    {name:"Aruba (beach)", type:"beach", emoji:"🏖️", flightPP:900, lodgeN:570, foodD:185, exc:400, ground:320,
+  aruba:    {name:"Aruba (beach)", type:"beach", emoji:"🏖️", flightPP:1000, lodgeN:570, foodD:185, exc:400, ground:320,
              note:"⭐ Truest West Bay replica — Palm Beach resort strip, walkable dining, shortest flight. Cheapest flights, priciest lodging."},
-  crete:    {name:"Crete · Chania (beach)", type:"beach", emoji:"🏖️", flightPP:3600, lodgeN:330, foodD:105, exc:400, ground:300,
+  crete:    {name:"Crete · Chania (beach)", type:"beach", emoji:"🏖️", flightPP:5200, lodgeN:330, foodD:105, exc:400, ground:300,
              note:"⭐ Best European resort match — Platanias belt + walkable tavernas. Domes Zeen (kids free) keeps lodging reasonable."},
-  sardinia: {name:"Sardinia · Chia (beach)", type:"beach", emoji:"🏖️", flightPP:3800, lodgeN:450, foodD:125, exc:350, ground:300,
+  sardinia: {name:"Sardinia · Chia (beach)", type:"beach", emoji:"🏖️", flightPP:5400, lodgeN:450, foodD:125, exc:350, ground:300,
              note:"⭐ Top resorts (Chia Laguna / Forte Village) but self-contained, lighter on walk-to-dining."},
 };
 const ORDER = ["japan","brazil","iberia","aruba","crete","sardinia"];
@@ -162,7 +162,7 @@ function renderSummary(){
         <td class="num">${money(r.t.exc+r.t.ground)}</td>
         <td class="num">${pay==='points'?'<span class="ur">pts</span>':money(r.t.flights)}</td>
         <td class="num tot">${money(r.t.grand)}</td></tr>`).join('')}</tbody></table>
-      <div class="note">Costs anchored to your <b>real Brazil 2026 spend</b> (food ~$115/day, Vitória lodging ~$0–90) and the resort-lens research for the beach picks — all editable estimates. <b>"On points"</b> shows cash out-of-pocket with flights covered by UR/MR (flight value still differs by destination — see each tab); <b>"as cash"</b> adds estimated flight cash so you can compare apples to apples. "As cash" uses <b>business-cabin</b> estimates for the long-hauls (e.g. Lisbon biz ~$3.1–4.3k RT, validated live) and economy for short-haul Aruba. When Jun-2027 fares go on sale (~Aug 2026), real business/premium cash wires in here with <b>deal-detection</b> — an automated version of the premium fare-deal sites, watching your actual destinations (Lisbon especially).</div>
+      <div class="note">Costs anchored to your <b>real Brazil 2026 spend</b> (food ~$115/day, Vitória lodging ~$0–90) and the resort-lens research for the beach picks — all editable estimates. <b>"On points"</b> shows cash out-of-pocket with flights covered by UR/MR (flight value still differs by destination — see each tab); <b>"as cash"</b> adds estimated flight cash so you can compare apples to apples. "As cash" = <b>one protected ticket from CHS in business</b> (long-haul; economy for short-haul Aruba). Pricier than a Going-style hub deal — CHS→LIS one-ticket ~$5.1k vs a $3.1k Boston deal — but that ~$2k/pp gap buys you out of a separate positioning ticket (the Condor misconnect). When Jun-2027 fares load (~Aug 2026), real CHS-origin cash wires in with <b>deal-detection</b>, and it'll surface any hub deal worth positioning for (with a long buffer) so you decide — never silently.</div>
     </div>`;
 }
 
