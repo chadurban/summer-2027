@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-28T11:00:36Z",
+  "lastUpdated": "2026-06-29T11:00:32Z",
   "window": "early\u2013mid June 2027 \u00b7 7\u201315 nights",
   "dests": [
     {
@@ -54,9 +54,27 @@
       "gateways": "CNF/GIG/GRU/VCP",
       "cabins": {
         "business": {
-          "n": 0,
-          "p3": null,
-          "p4": null
+          "n": 3,
+          "p3": {
+            "ow": 56500,
+            "route": "JFK\u2192GRU (1-stop)",
+            "seats": 4,
+            "date": "2027-06-01",
+            "direct": false,
+            "airlines": "CM",
+            "via": "UR/MR \u2192 Flying Blue",
+            "ur": true
+          },
+          "p4": {
+            "ow": 56500,
+            "route": "JFK\u2192GRU (1-stop)",
+            "seats": 4,
+            "date": "2027-06-01",
+            "direct": false,
+            "airlines": "CM",
+            "via": "UR/MR \u2192 Flying Blue",
+            "ur": true
+          }
         },
         "premium": {
           "n": 0,
@@ -72,7 +90,7 @@
       "gateways": "BCN/LIS/MAD/OPO/SVQ",
       "cabins": {
         "business": {
-          "n": 7,
+          "n": 6,
           "p3": {
             "ow": 131000,
             "route": "BOS\u2192LIS (1-stop)",
