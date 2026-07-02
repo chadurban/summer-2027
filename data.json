@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-02T11:00:36Z",
+  "lastUpdated": "2026-07-02T15:32:02Z",
   "window": "early\u2013mid June 2027 \u00b7 7\u201315 nights",
   "dests": [
     {
@@ -9,21 +9,12 @@
       "gateways": "HND/ICN/NRT",
       "cabins": {
         "business": {
-          "n": 8,
-          "p3": {
-            "ow": 115000,
-            "route": "JFK\u2192NRT (1-stop)",
-            "seats": 3,
-            "date": "2027-06-02",
-            "direct": false,
-            "airlines": "MS",
-            "via": "UR/MR \u2192 Aeroplan",
-            "ur": true
-          },
+          "n": 0,
+          "p3": null,
           "p4": null
         },
         "premium": {
-          "n": 3,
+          "n": 1,
           "p3": {
             "ow": 138500,
             "route": "JFK\u2192ICN (1-stop)",
@@ -90,14 +81,14 @@
       "gateways": "BCN/LIS/MAD/OPO/SVQ",
       "cabins": {
         "business": {
-          "n": 7,
+          "n": 4,
           "p3": {
             "ow": 129000,
             "route": "BOS\u2192LIS (1-stop)",
             "seats": 7,
-            "date": "2027-06-08",
+            "date": "2027-06-16",
             "direct": false,
-            "airlines": "AF",
+            "airlines": "KL",
             "via": "UR/MR \u2192 Flying Blue",
             "ur": true
           },
@@ -105,9 +96,9 @@
             "ow": 129000,
             "route": "BOS\u2192LIS (1-stop)",
             "seats": 7,
-            "date": "2027-06-08",
+            "date": "2027-06-16",
             "direct": false,
-            "airlines": "AF",
+            "airlines": "KL",
             "via": "UR/MR \u2192 Flying Blue",
             "ur": true
           }
@@ -118,9 +109,9 @@
             "ow": 60500,
             "route": "BOS\u2192BCN (1-stop)",
             "seats": 9,
-            "date": "2027-06-02",
+            "date": "2027-06-01",
             "direct": false,
-            "airlines": "KL",
+            "airlines": "AF",
             "via": "UR/MR \u2192 Flying Blue",
             "ur": true
           },
@@ -128,9 +119,9 @@
             "ow": 60500,
             "route": "BOS\u2192BCN (1-stop)",
             "seats": 9,
-            "date": "2027-06-02",
+            "date": "2027-06-01",
             "direct": false,
-            "airlines": "KL",
+            "airlines": "AF",
             "via": "UR/MR \u2192 Flying Blue",
             "ur": true
           }

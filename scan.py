@@ -22,6 +22,13 @@ KEY = json.load(open(SECRETS))["seats_aero_partner_authorization"]
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
 HDR = {"Partner-Authorization": KEY, "Accept": "application/json", "User-Agent": UA}
 
+# ── SHARED CONFIG NOTES (all 3 flight scanners — keep in sync) ──────────────
+# * ANA is NOT a seats.aero source (HTTP 400) — do NOT add "ana"; NH metal surfaces via united/aeroplan.
+# * Avianca LifeMiles IS an Amex MR 1:1 partner (verified Jun 2026) — tier 1, "MR → LifeMiles".
+# * La Compagnie (EWR all-business) is INVISIBLE to Google Flights/SerpApi — watch lacompagnie.com manually.
+# * seats.aero Pro quota = 1000/day SHARED: japan 6:20, brazil-xmas 6:40, summer-2027 7:00.
+# * Push alerts: notify() → ntfy.sh topic from the secrets JSON ("ntfy_topic"); never commit the topic.
+
 # --- windows ---
 OUT_START, OUT_END = "2027-06-01", "2027-06-16"     # early-mid June depart
 RET_START, RET_END = "2027-06-08", "2027-07-01"     # return (7-15 nights out; mostly >360d, sparse now)
@@ -32,10 +39,13 @@ PARTIES = [3, 4]
 ALL_US  = {"CHS","ATL","JFK","EWR","IAD","IAH","ORD","BOS","CLT","DFW","DTW","PHL","MIA","SFO","LAX","SEA","DEN"}
 EAST_US = {"CHS","ATL","JFK","EWR","IAD","IAH","ORD","BOS","CLT","DFW","DTW","PHL","MIA"}   # no west-coast backtrack to Brazil/Iberia
 
+BT_ME_SA = {"CAI","DEL","BOM","IST","DXB","AUH","DOH","ADD","JNB","NBO","TLV","SVO"}          # Middle East / South Asia / Africa detours
+BT_BRAZIL = {"CDG","ORY","AMS","LHR","LGW","FRA","MUC","MAD","BCN","LIS","OPO","FCO","MXP","ZRH","IST","DXB","AUH","DOH","CAI","ADD","CMN","HND","NRT","ICN","PEK","PVG","HKG","SIN","DEL","BOM","SFO","LAX","SEA","PDX"}
+BT_IBERIA = BT_ME_SA | {"HND","NRT","ICN","PEK","PVG","HKG","SIN"}                                # CMN allowed — Casablanca is a real Lisbon/Madrid path
 DESTS = [
-    {"key":"japan",  "name":"Japan / Korea",        "region":"Asia",          "gw":{"ICN","NRT","HND"},          "hubs":ALL_US,  "hop":None},
-    {"key":"brazil", "name":"Brazil · Vitória",     "region":"South America", "gw":{"GRU","GIG","VCP","CNF"},    "hubs":EAST_US, "hop":"+ VIX hop (~$60–130)"},
-    {"key":"iberia", "name":"Iberia · Lisbon/Madrid/Barcelona","region":"Europe",        "gw":{"LIS","OPO","MAD","SVQ","BCN"},    "hubs":EAST_US, "hop":None},
+    {"key":"japan",  "name":"Japan / Korea",        "region":"Asia",          "gw":{"ICN","NRT","HND"},          "hubs":ALL_US,  "hop":None, "bt":BT_ME_SA | {"XMN","CAN","PVG","PEK","CGO","CTU"}},
+    {"key":"brazil", "name":"Brazil · Vitória",     "region":"South America", "gw":{"GRU","GIG","VCP","CNF"},    "hubs":EAST_US, "hop":"+ VIX hop (~$60–130)", "bt":BT_BRAZIL},
+    {"key":"iberia", "name":"Iberia · Lisbon/Madrid/Barcelona","region":"Europe",        "gw":{"LIS","OPO","MAD","SVQ","BCN"},    "hubs":EAST_US, "hop":None, "bt":BT_IBERIA},
 ]
 PROGRAMS = ["aeroplan","united","virginatlantic","flyingblue","delta","aeromexico","singapore","lifemiles","american","alaska","turkish"]
 CABKEY = {"business":"J","premium":"W"}
@@ -134,10 +144,13 @@ def collect(dest, cabin):
                    "date":r.get("Date"),"direct":r.get(f"{ck}Direct"),"airlines":r.get(f"{ck}Airlines")}
             if key not in ded or seats > ded[key]["seats"]: ded[key] = row
     for k in sorted(ded.values(), key=lambda x:x["miles"])[:8]:
-        if k["direct"]: k["stops"], k["layoverOK"] = 0, True
+        if k["direct"]: k["stops"], k["layoverOK"], path = 0, True, ""
         else:
             rt = best_trip(k["id"], cabin)
             k["stops"], k["layoverOK"] = (rt["stops"], rt["layoverOK"]) if rt else (1, False)
+            path = (rt or {}).get("path", "")
+        if any(h in dest.get("bt", set()) for h in path.split("-") if h):
+            continue   # drop never-fly detours (JFK-CAI-ICN etc.)
         rows.append(k)
     return rows
 
