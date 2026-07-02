@@ -45,7 +45,7 @@ BT_IBERIA = BT_ME_SA | {"HND","NRT","ICN","PEK","PVG","HKG","SIN"}              
 DESTS = [
     {"key":"japan",  "name":"Japan / Korea",        "region":"Asia",          "gw":{"ICN","NRT","HND"},          "hubs":ALL_US,  "hop":None, "bt":BT_ME_SA | {"XMN","CAN","PVG","PEK","CGO","CTU"}},
     {"key":"brazil", "name":"Brazil · Vitória",     "region":"South America", "gw":{"GRU","GIG","VCP","CNF"},    "hubs":EAST_US, "hop":"+ VIX hop (~$60–130)", "bt":BT_BRAZIL},
-    {"key":"iberia", "name":"Iberia · Lisbon/Madrid/Barcelona","region":"Europe",        "gw":{"LIS","OPO","MAD","SVQ","BCN"},    "hubs":EAST_US, "hop":None, "bt":BT_IBERIA},
+    {"key":"iberia", "name":"Iberia+Med · LIS/SVQ/BCN/NCE","region":"Europe",        "gw":{"LIS","OPO","MAD","SVQ","BCN","NCE"},    "hubs":EAST_US, "hop":None, "bt":BT_IBERIA},
 ]
 PROGRAMS = ["aeroplan","united","virginatlantic","flyingblue","delta","aeromexico","singapore","lifemiles","american","alaska","turkish"]
 CABKEY = {"business":"J","premium":"W"}
