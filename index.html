@@ -50,6 +50,7 @@
 </head>
 <body>
 <div class="wrap">
+<div class="xnav" style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:10px 0 2px;"><a href="https://chadurban.github.io/summer-2027/" style="font-size:0.68rem;font-weight:600;text-decoration:none;padding:4px 10px;border-radius:999px;border:1px solid #2ecc71;color:#2ecc71;">🗺️ 2027 Hub</a><a href="https://chadurban.github.io/brazil-xmas-tracker/" style="font-size:0.68rem;font-weight:600;text-decoration:none;padding:4px 10px;border-radius:999px;border:1px solid rgba(128,128,128,0.4);color:inherit;opacity:0.75;">🎄 Xmas ’26</a><a href="https://chadurban.github.io/flight-tracker/" style="font-size:0.68rem;font-weight:600;text-decoration:none;padding:4px 10px;border-radius:999px;border:1px solid rgba(128,128,128,0.4);color:inherit;opacity:0.75;">🗾 Japan detail</a><a href="https://beach-2027.pages.dev/" style="font-size:0.68rem;font-weight:600;text-decoration:none;padding:4px 10px;border-radius:999px;border:1px solid rgba(128,128,128,0.4);color:inherit;opacity:0.75;">🏖️ Beach detail</a><a href="https://brazil-2026.pages.dev/" style="font-size:0.68rem;font-weight:600;text-decoration:none;padding:4px 10px;border-radius:999px;border:1px solid rgba(128,128,128,0.4);color:inherit;opacity:0.75;">🇧🇷 Brazil ’26 trip</a></div>
   <header>
     <h1>🗺️ 2027 Trips — Where To?</h1>
     <div class="sub">Total trip cost, head to head · summer adventure vs. beach week · anchored to your Brazil 2026 spend</div>
@@ -163,7 +164,20 @@ function renderSummary(){
         <td class="num">${pay==='points'?'<span class="ur">pts</span>':money(r.t.flights)}</td>
         <td class="num tot">${money(r.t.grand)}</td></tr>`).join('')}</tbody></table>
       <div class="note">Costs anchored to your <b>real Brazil 2026 spend</b> (food ~$115/day, Vitória lodging ~$0–90) and the resort-lens research for the beach picks — all editable estimates. <b>"On points"</b> shows cash out-of-pocket with flights covered by UR/MR (flight value still differs by destination — see each tab); <b>"as cash"</b> adds estimated flight cash so you can compare apples to apples. "As cash" = the <b>smart booking</b>, risk-tiered by the positioning leg: a hub deal de-risked by how often that leg flies — <b>CHS→ATL</b> (frequent) is safe same-day; <b>CHS→BOS/JFK</b> (less frequent) gets positioned a day early with a hotel night. That captures the deal (~$3.1k Lisbon + one ticket + a hotel) and beats the single-ticket premium handily (CHS→LIS one-ticket is ~$5.1k; positioning saves ~$5k for a family of 3). A single CHS-origin ticket is the fallback when no deal beats it. When Jun-2027 cash loads (~Aug 2026), deal-detection shows BOTH totals — single-ticket vs deal+buffer — and the recommended play.</div>
-    </div>`;
+    </div>` + xmasTile();
+}
+
+let XMAS=null;
+fetch('https://chadurban.github.io/brazil-xmas-tracker/data.json').then(r=>r.ok?r.json():null).then(d=>{ XMAS=d; if(current==='summary')render(); }).catch(()=>{});
+function xmasTile(){
+  let body = 'Conditional — only happens if Kami\'s parents buy a place in Brazil (decided late in the year). Scanned daily; alerts push to your phone.';
+  if(XMAS && XMAS.bestOption && XMAS.bestOption.premium){
+    const p = XMAS.bestOption.premium;
+    body = `Best premium pair now: <b>${p.totalMiles.toLocaleString()} mi + ~$${p.totalExtraCash}</b> for 3 (${p.outDate} → ${p.retDate}${p.tier==='ideal'?', 3+ seats':''}). Conditional — only if Kami's parents buy in Brazil. Scanned daily; alerts push to your phone.`;
+  }
+  return `<div class="card"><h2>🎄 Christmas 2026 — Brazil · Vitória <span class="pill">conditional</span></h2>
+    <div class="h-sub">${body}</div>
+    <a href="https://chadurban.github.io/brazil-xmas-tracker/" style="font-size:0.8rem;color:var(--accent);font-weight:600;text-decoration:none;">Open the full Christmas tracker →</a></div>`;
 }
 
 let current = 'summary';
