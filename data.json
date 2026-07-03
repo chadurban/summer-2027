@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-02T15:32:02Z",
+  "lastUpdated": "2026-07-03T11:00:41Z",
   "window": "early\u2013mid June 2027 \u00b7 7\u201315 nights",
   "dests": [
     {
@@ -76,12 +76,12 @@
     },
     {
       "key": "iberia",
-      "name": "Iberia \u00b7 Lisbon/Madrid/Barcelona",
+      "name": "Iberia+Med \u00b7 Lisbon\u2192Nice (Kami's route)",
       "hop": null,
-      "gateways": "BCN/LIS/MAD/OPO/SVQ",
+      "gateways": "LIS/NCE",
       "cabins": {
         "business": {
-          "n": 4,
+          "n": 2,
           "p3": {
             "ow": 129000,
             "route": "BOS\u2192LIS (1-stop)",
@@ -104,24 +104,24 @@
           }
         },
         "premium": {
-          "n": 8,
+          "n": 5,
           "p3": {
-            "ow": 60500,
-            "route": "BOS\u2192BCN (1-stop)",
+            "ow": 68000,
+            "route": "JFK\u2192LIS (1-stop)",
             "seats": 9,
             "date": "2027-06-01",
             "direct": false,
-            "airlines": "AF",
+            "airlines": "AF, KL",
             "via": "UR/MR \u2192 Flying Blue",
             "ur": true
           },
           "p4": {
-            "ow": 60500,
-            "route": "BOS\u2192BCN (1-stop)",
+            "ow": 68000,
+            "route": "JFK\u2192LIS (1-stop)",
             "seats": 9,
             "date": "2027-06-01",
             "direct": false,
-            "airlines": "AF",
+            "airlines": "AF, KL",
             "via": "UR/MR \u2192 Flying Blue",
             "ur": true
           }
