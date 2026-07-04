@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T11:00:41Z",
+  "lastUpdated": "2026-07-04T11:00:31Z",
   "window": "early\u2013mid June 2027 \u00b7 7\u201315 nights",
   "dests": [
     {
@@ -45,7 +45,7 @@
       "gateways": "CNF/GIG/GRU/VCP",
       "cabins": {
         "business": {
-          "n": 4,
+          "n": 5,
           "p3": {
             "ow": 58000,
             "route": "JFK\u2192GIG (1-stop)",
@@ -81,9 +81,9 @@
       "gateways": "LIS/NCE",
       "cabins": {
         "business": {
-          "n": 2,
+          "n": 3,
           "p3": {
-            "ow": 129000,
+            "ow": 128500,
             "route": "BOS\u2192LIS (1-stop)",
             "seats": 7,
             "date": "2027-06-16",
@@ -93,7 +93,7 @@
             "ur": true
           },
           "p4": {
-            "ow": 129000,
+            "ow": 128500,
             "route": "BOS\u2192LIS (1-stop)",
             "seats": 7,
             "date": "2027-06-16",
