@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-04T11:00:31Z",
+  "lastUpdated": "2026-07-05T11:00:34Z",
   "window": "early\u2013mid June 2027 \u00b7 7\u201315 nights",
   "dests": [
     {
@@ -14,9 +14,9 @@
           "p4": null
         },
         "premium": {
-          "n": 1,
+          "n": 2,
           "p3": {
-            "ow": 138500,
+            "ow": 138000,
             "route": "JFK\u2192ICN (1-stop)",
             "seats": 9,
             "date": "2027-06-01",
@@ -26,7 +26,7 @@
             "ur": true
           },
           "p4": {
-            "ow": 138500,
+            "ow": 138000,
             "route": "JFK\u2192ICN (1-stop)",
             "seats": 9,
             "date": "2027-06-01",
@@ -68,9 +68,27 @@
           }
         },
         "premium": {
-          "n": 0,
-          "p3": null,
-          "p4": null
+          "n": 1,
+          "p3": {
+            "ow": 55000,
+            "route": "IAD\u2192GRU",
+            "seats": 9,
+            "date": "2027-06-01",
+            "direct": true,
+            "airlines": "UA",
+            "via": "UR \u2192 United",
+            "ur": true
+          },
+          "p4": {
+            "ow": 55000,
+            "route": "IAD\u2192GRU",
+            "seats": 9,
+            "date": "2027-06-01",
+            "direct": true,
+            "airlines": "UA",
+            "via": "UR \u2192 United",
+            "ur": true
+          }
         }
       }
     },
@@ -81,7 +99,7 @@
       "gateways": "LIS/NCE",
       "cabins": {
         "business": {
-          "n": 3,
+          "n": 2,
           "p3": {
             "ow": 128500,
             "route": "BOS\u2192LIS (1-stop)",
