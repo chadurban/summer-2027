@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-05T11:00:34Z",
+  "lastUpdated": "2026-07-06T11:00:34Z",
   "window": "early\u2013mid June 2027 \u00b7 7\u201315 nights",
   "dests": [
     {
@@ -14,25 +14,25 @@
           "p4": null
         },
         "premium": {
-          "n": 2,
+          "n": 5,
           "p3": {
-            "ow": 138000,
-            "route": "JFK\u2192ICN (1-stop)",
-            "seats": 9,
+            "ow": 105000,
+            "route": "DTW\u2192ICN",
+            "seats": 6,
             "date": "2027-06-01",
-            "direct": false,
-            "airlines": "AF, KL",
-            "via": "UR/MR \u2192 Flying Blue",
+            "direct": true,
+            "airlines": "DL",
+            "via": "UR \u2192 Virgin (Delta)",
             "ur": true
           },
           "p4": {
-            "ow": 138000,
-            "route": "JFK\u2192ICN (1-stop)",
-            "seats": 9,
+            "ow": 105000,
+            "route": "DTW\u2192ICN",
+            "seats": 6,
             "date": "2027-06-01",
-            "direct": false,
-            "airlines": "AF, KL",
-            "via": "UR/MR \u2192 Flying Blue",
+            "direct": true,
+            "airlines": "DL",
+            "via": "UR \u2192 Virgin (Delta)",
             "ur": true
           }
         }
@@ -45,22 +45,22 @@
       "gateways": "CNF/GIG/GRU/VCP",
       "cabins": {
         "business": {
-          "n": 5,
+          "n": 2,
           "p3": {
-            "ow": 58000,
-            "route": "JFK\u2192GIG (1-stop)",
+            "ow": 59000,
+            "route": "ORD\u2192GIG (1-stop)",
             "seats": 4,
-            "date": "2027-06-04",
+            "date": "2027-06-07",
             "direct": false,
             "airlines": "CM",
             "via": "UR/MR \u2192 Flying Blue",
             "ur": true
           },
           "p4": {
-            "ow": 58000,
-            "route": "JFK\u2192GIG (1-stop)",
+            "ow": 59000,
+            "route": "ORD\u2192GIG (1-stop)",
             "seats": 4,
-            "date": "2027-06-04",
+            "date": "2027-06-07",
             "direct": false,
             "airlines": "CM",
             "via": "UR/MR \u2192 Flying Blue",
@@ -122,7 +122,7 @@
           }
         },
         "premium": {
-          "n": 5,
+          "n": 4,
           "p3": {
             "ow": 68000,
             "route": "JFK\u2192LIS (1-stop)",
