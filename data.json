@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-09T11:00:49Z",
+  "lastUpdated": "2026-07-10T11:00:51Z",
   "window": "early\u2013mid June 2027 \u00b7 7\u201315 nights",
   "dests": [
     {
@@ -11,24 +11,24 @@
         "business": {
           "n": 3,
           "p3": {
-            "ow": 95000,
-            "route": "LAX\u2192ICN (1-stop)",
+            "ow": 108500,
+            "route": "IAD\u2192NRT (1-stop)",
             "seats": 9,
             "date": "2027-06-01",
             "direct": false,
-            "airlines": "AS",
-            "via": "Alaska miles",
-            "ur": false
+            "airlines": "AF, AM, KL",
+            "via": "UR/MR \u2192 Flying Blue",
+            "ur": true
           },
           "p4": {
-            "ow": 95000,
-            "route": "LAX\u2192ICN (1-stop)",
+            "ow": 108500,
+            "route": "IAD\u2192NRT (1-stop)",
             "seats": 9,
             "date": "2027-06-01",
             "direct": false,
-            "airlines": "AS",
-            "via": "Alaska miles",
-            "ur": false
+            "airlines": "AF, AM, KL",
+            "via": "UR/MR \u2192 Flying Blue",
+            "ur": true
           }
         },
         "premium": {
@@ -36,7 +36,7 @@
           "p3": {
             "ow": 105000,
             "route": "DTW\u2192ICN",
-            "seats": 3,
+            "seats": 4,
             "date": "2027-06-01",
             "direct": true,
             "airlines": "DL",
@@ -44,9 +44,9 @@
             "ur": true
           },
           "p4": {
-            "ow": 110000,
-            "route": "LAX\u2192HND",
-            "seats": 9,
+            "ow": 105000,
+            "route": "DTW\u2192ICN",
+            "seats": 4,
             "date": "2027-06-01",
             "direct": true,
             "airlines": "DL",
@@ -86,10 +86,10 @@
           }
         },
         "premium": {
-          "n": 4,
+          "n": 6,
           "p3": {
             "ow": 55000,
-            "route": "ORD\u2192GRU",
+            "route": "EWR\u2192GRU",
             "seats": 9,
             "date": "2027-06-01",
             "direct": true,
@@ -99,7 +99,7 @@
           },
           "p4": {
             "ow": 55000,
-            "route": "ORD\u2192GRU",
+            "route": "EWR\u2192GRU",
             "seats": 9,
             "date": "2027-06-01",
             "direct": true,
@@ -117,7 +117,7 @@
       "gateways": "LIS/NCE",
       "cabins": {
         "business": {
-          "n": 2,
+          "n": 3,
           "p3": {
             "ow": 128500,
             "route": "BOS\u2192LIS (1-stop)",
@@ -140,7 +140,7 @@
           }
         },
         "premium": {
-          "n": 6,
+          "n": 5,
           "p3": {
             "ow": 68000,
             "route": "JFK\u2192LIS (1-stop)",
