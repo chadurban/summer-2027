@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-11T11:01:00Z",
+  "lastUpdated": "2026-07-12T11:01:00Z",
   "window": "early\u2013mid June 2027 \u00b7 7\u201315 nights",
   "dests": [
     {
@@ -86,7 +86,7 @@
           }
         },
         "premium": {
-          "n": 7,
+          "n": 8,
           "p3": {
             "ow": 55000,
             "route": "EWR\u2192GRU",
@@ -117,7 +117,7 @@
       "gateways": "LIS/NCE",
       "cabins": {
         "business": {
-          "n": 3,
+          "n": 2,
           "p3": {
             "ow": 128500,
             "route": "BOS\u2192LIS (1-stop)",
