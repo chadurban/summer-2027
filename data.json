@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-17T11:01:23Z",
+  "lastUpdated": "2026-07-18T11:01:12Z",
   "window": "early\u2013mid June 2027 \u00b7 7\u201315 nights",
   "dests": [
     {
@@ -21,14 +21,14 @@
             "ur": true
           },
           "p4": {
-            "ow": 108500,
-            "route": "IAD\u2192NRT (1-stop)",
+            "ow": 95000,
+            "route": "LAX\u2192ICN (1-stop)",
             "seats": 9,
-            "date": "2027-06-01",
+            "date": "2027-06-05",
             "direct": false,
-            "airlines": "AF, AM, KL",
-            "via": "UR/MR \u2192 Flying Blue",
-            "ur": true
+            "airlines": "AS",
+            "via": "Alaska miles",
+            "ur": false
           }
         },
         "premium": {
@@ -117,7 +117,7 @@
       "gateways": "LIS/NCE",
       "cabins": {
         "business": {
-          "n": 6,
+          "n": 4,
           "p3": {
             "ow": 128500,
             "route": "BOS\u2192LIS (1-stop)",
@@ -140,7 +140,7 @@
           }
         },
         "premium": {
-          "n": 7,
+          "n": 5,
           "p3": {
             "ow": 67500,
             "route": "JFK\u2192LIS (1-stop)",
