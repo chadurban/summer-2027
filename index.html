@@ -2,61 +2,147 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2027 Trips — Where To?</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0f1117">
+<title>2027 Trips — Flight Watch</title>
 <style>
-  :root{--bg:#0f1117;--surface:#1a1d27;--surface2:#242836;--border:#2e3347;--text:#e4e6ed;--dim:#8b8fa3;
-        --accent:#2ecc71;--accent2:#f9ca24;--blue:#54a0ff;--red:#ff6b6b;--violet:#a55eea;}
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;}
-  .wrap{max-width:920px;margin:0 auto;padding:16px;}
-  header{text-align:center;padding:20px 0 6px;}
-  header h1{font-size:1.4rem;background:linear-gradient(135deg,var(--accent),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:3px;}
-  header .sub{color:var(--dim);font-size:0.82rem;}
-  .updated{text-align:center;color:var(--dim);font-size:0.72rem;margin:4px 0 12px;}
-  .controls{display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap;margin-bottom:14px;font-size:0.82rem;color:var(--dim);}
-  .controls .seg{display:inline-flex;gap:4px;background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:3px;}
-  .controls .seg button{border:none;background:none;color:var(--dim);padding:6px 12px;border-radius:999px;font-size:0.8rem;font-weight:600;cursor:pointer;min-height:34px;}
-  .controls .seg button.active{background:var(--accent);color:#07210f;}
-  .controls input[type=range]{vertical-align:middle;}
-  .nav{display:flex;gap:6px;overflow-x:auto;padding-bottom:10px;-webkit-overflow-scrolling:touch;}
-  .nav button{flex-shrink:0;padding:9px 15px;border:1px solid var(--border);border-radius:999px;background:var(--surface);color:var(--dim);font-size:0.8rem;font-weight:600;cursor:pointer;min-height:42px;}
+  :root{
+    --bg:#0f1117; --surface:#191d29; --surface2:#222736; --border:#2c3247;
+    --text:#e7e9f0; --dim:#9298ad; --faint:#666d82;
+    --accent:#2ecc71; --accent-d:#123123; --accent-b:#1f7a4d;
+    --gold:#f9ca24; --gold-d:#33290a; --gold-b:#8a7413;
+    --blue:#54a0ff; --red:#ff6b6b; --red-d:#331617; --red-b:#8a2f2f;
+    --violet:#a55eea;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);
+    color:var(--text);-webkit-font-smoothing:antialiased;line-height:1.45;}
+  .wrap{max-width:920px;margin:0 auto;padding:0 15px 44px;}
+  a{color:var(--blue);text-decoration:none;}
+
+  .xnav{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:calc(env(safe-area-inset-top) + 10px) 0 2px;}
+  .xnav a{font-size:0.68rem;font-weight:600;padding:5px 11px;border-radius:999px;border:1px solid var(--border);
+    color:var(--dim);min-height:30px;display:inline-flex;align-items:center;}
+  .xnav a.here{border-color:var(--accent);color:var(--accent);}
+
+  header{text-align:center;padding:16px 0 6px;}
+  header h1{font-size:1.35rem;background:linear-gradient(135deg,var(--accent),var(--blue));
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:3px;}
+  header .sub{color:var(--dim);font-size:0.8rem;}
+  .updated{text-align:center;color:var(--faint);font-size:0.72rem;margin:5px 0 14px;}
+
+  .lbl{font-size:0.72rem;font-weight:700;letter-spacing:0.9px;text-transform:uppercase;color:var(--dim);margin:0 2px 9px;}
+
+  /* verdict tokens */
+  .badge{display:inline-flex;align-items:center;gap:5px;font-weight:800;font-size:0.66rem;letter-spacing:0.5px;
+    padding:4px 9px;border-radius:999px;text-transform:uppercase;white-space:nowrap;}
+  .v-gold{background:var(--gold-d);color:#ffe27a;border:1px solid var(--gold-b);}
+  .v-green{background:var(--accent-d);color:#7ff0b0;border:1px solid var(--accent-b);}
+  .v-dim{background:var(--surface2);color:var(--dim);border:1px solid var(--border);}
+  .v-red{background:var(--red-d);color:#ff9d92;border:1px solid var(--red-b);}
+  .chip{display:inline-flex;align-items:center;gap:5px;font-size:0.72rem;font-weight:600;padding:3px 9px;
+    border-radius:8px;background:var(--surface2);color:var(--dim);border:1px solid var(--border);}
+  .chip.good{background:var(--accent-d);color:#7ff0b0;border-color:var(--accent-b);}
+  .chip.hot{background:var(--gold-d);color:#ffe27a;border-color:var(--gold-b);}
+
+  /* ALERTS HERO */
+  .alertHero{margin-bottom:22px;}
+  .aFeat{border-radius:16px;border:1px solid var(--gold-b);
+    background:linear-gradient(180deg,var(--gold-d),var(--surface) 70%);padding:16px 16px 15px;}
+  .aFeat.green{border-color:var(--accent-b);background:linear-gradient(180deg,var(--accent-d),var(--surface) 70%);}
+  .aFeat .top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:9px;}
+  .aFeat .who{font-size:0.82rem;font-weight:700;color:var(--text);}
+  .aFeat .when{font-size:0.7rem;color:var(--faint);}
+  .aFeat .msg{font-size:0.95rem;line-height:1.5;color:var(--text);}
+  .aFeat .msg b{color:#fff;}
+  .aFeat .act{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px;}
+  .aFeat .act button, .aFeat .act a{font-size:0.78rem;font-weight:700;padding:9px 13px;border-radius:10px;
+    border:1px solid var(--border);background:var(--surface2);color:var(--text);cursor:pointer;min-height:40px;
+    display:inline-flex;align-items:center;gap:6px;}
+  .aFeat .act .primary{background:var(--accent);color:#07210f;border-color:var(--accent);}
+  .aMore{display:flex;flex-direction:column;gap:7px;margin-top:9px;}
+  .aRow{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:var(--surface);
+    border:1px solid var(--border);border-radius:11px;padding:11px 12px;color:inherit;font:inherit;cursor:pointer;min-height:52px;}
+  .aRow .dot{flex:0 0 auto;width:9px;height:9px;border-radius:50%;}
+  .aRow .t1{flex:1 1 auto;min-width:0;}
+  .aRow .t1 .a{font-size:0.7rem;color:var(--faint);}
+  .aRow .t1 .b{font-size:0.86rem;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .aRow.open .t1 .b{white-space:normal;}
+  .aRow .full{display:none;}
+  .noAlert{color:var(--dim);font-size:0.84rem;text-align:center;padding:16px;border:1px dashed var(--border);border-radius:12px;}
+
+  /* controls */
+  .controls{display:flex;gap:13px;justify-content:center;align-items:center;flex-wrap:wrap;
+    margin-bottom:14px;font-size:0.8rem;color:var(--dim);}
+  .seg{display:inline-flex;gap:4px;background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:3px;}
+  .seg button{border:none;background:none;color:var(--dim);padding:7px 13px;border-radius:999px;font-size:0.8rem;
+    font-weight:600;cursor:pointer;min-height:38px;}
+  .seg button.active{background:var(--accent);color:#07210f;}
+  input[type=range]{vertical-align:middle;}
+
+  /* trip picker nav */
+  .nav{display:flex;gap:7px;overflow-x:auto;padding-bottom:10px;-webkit-overflow-scrolling:touch;margin-bottom:4px;}
+  .nav button{position:relative;flex-shrink:0;padding:10px 15px;border:1px solid var(--border);border-radius:999px;
+    background:var(--surface);color:var(--dim);font-size:0.82rem;font-weight:600;cursor:pointer;min-height:44px;}
   .nav button.active{background:var(--accent);color:#07210f;border-color:var(--accent);}
-  .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:14px;}
-  .card h2{font-size:1.02rem;margin-bottom:4px;}
+  .nav button .ndot{position:absolute;top:6px;right:9px;width:8px;height:8px;border-radius:50%;}
+
+  /* cards */
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 17px;margin-bottom:13px;}
+  .card h2{font-size:1.04rem;margin-bottom:3px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
   .card .h-sub{font-size:0.76rem;color:var(--dim);margin-bottom:12px;}
+
+  /* deal: cash vs points */
+  .deal2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:4px 0 6px;}
+  .deal2 .col{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:12px;}
+  .deal2 .col .k{font-size:0.66rem;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;color:var(--dim);margin-bottom:5px;}
+  .deal2 .col .big{font-size:1.16rem;font-weight:800;letter-spacing:0.2px;}
+  .deal2 .col .sm{font-size:0.75rem;color:var(--dim);margin-top:3px;line-height:1.4;}
+  .deal2 .col.best{border-color:var(--accent-b);}
+  .dealMeta{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-top:4px;}
+
   table{width:100%;border-collapse:collapse;font-size:0.82rem;}
-  th{text-align:left;color:var(--dim);font-weight:500;padding:8px 6px;border-bottom:1px solid var(--border);white-space:nowrap;font-size:0.74rem;}
+  th{text-align:left;color:var(--dim);font-weight:500;padding:8px 6px;border-bottom:1px solid var(--border);white-space:nowrap;font-size:0.72rem;}
   td{padding:9px 6px;border-bottom:1px solid var(--border);vertical-align:middle;}
   td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
-  tr.win td{background:rgba(46,204,113,0.07);}
-  .tot{font-weight:700;font-size:0.95rem;color:var(--accent);}
-  .badge{display:inline-block;font-size:0.62rem;font-weight:700;padding:2px 7px;border-radius:999px;background:var(--accent);color:#07210f;margin-left:6px;}
-  .pill{display:inline-block;font-size:0.64rem;padding:1px 7px;border-radius:999px;border:1px solid var(--border);color:var(--dim);}
-  .line{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);font-size:0.86rem;}
+  tr.win td{background:rgba(46,204,113,0.08);}
+  .tot{font-weight:700;color:var(--accent);}
+  .pill{display:inline-block;font-size:0.62rem;padding:2px 8px;border-radius:999px;border:1px solid var(--border);color:var(--dim);}
+  .line{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.86rem;}
   .line:last-child{border-bottom:none;}
   .line .lbl{color:var(--dim);}
   .line .val{font-variant-numeric:tabular-nums;}
   .grand{display:flex;justify-content:space-between;padding:11px 0 2px;font-weight:700;font-size:1.05rem;}
   .grand .val{color:var(--accent);}
-  .muted{color:var(--dim);font-size:0.84rem;}
-  .note{background:var(--surface2);border-radius:10px;border-left:3px solid var(--accent2);padding:10px 12px;font-size:0.78rem;color:var(--dim);line-height:1.5;margin-top:12px;}
-  .flightbox{background:var(--surface2);border-radius:10px;padding:12px 14px;margin-bottom:14px;}
-  .flightbox .fl{font-size:0.84rem;padding:5px 0;}
-  .flightbox b{color:var(--text);}
-  .ur{color:var(--accent);} .nour{color:var(--accent2);}
-  .section{display:none;} .section.active{display:block;}
+  .ur{color:var(--accent);} .nour{color:var(--gold);}
+  .note{background:var(--surface2);border-radius:10px;border-left:3px solid var(--gold);padding:10px 12px;
+    font-size:0.77rem;color:var(--dim);line-height:1.5;margin-top:12px;}
+  .trackLink{display:inline-flex;align-items:center;gap:5px;font-size:0.8rem;font-weight:600;color:var(--blue);margin-top:10px;min-height:34px;}
 </style>
 </head>
 <body>
 <div class="wrap">
-<div class="xnav" style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:10px 0 2px;"><a href="https://chadurban.github.io/summer-2027/" style="font-size:0.68rem;font-weight:600;text-decoration:none;padding:4px 10px;border-radius:999px;border:1px solid #2ecc71;color:#2ecc71;">🗺️ 2027 Hub</a><a href="https://chadurban.github.io/brazil-xmas-tracker/" style="font-size:0.68rem;font-weight:600;text-decoration:none;padding:4px 10px;border-radius:999px;border:1px solid rgba(128,128,128,0.4);color:inherit;opacity:0.75;">🎄 Xmas ’26</a><a href="https://chadurban.github.io/flight-tracker/" style="font-size:0.68rem;font-weight:600;text-decoration:none;padding:4px 10px;border-radius:999px;border:1px solid rgba(128,128,128,0.4);color:inherit;opacity:0.75;">🗾 Japan detail</a><a href="https://beach-2027.pages.dev/" style="font-size:0.68rem;font-weight:600;text-decoration:none;padding:4px 10px;border-radius:999px;border:1px solid rgba(128,128,128,0.4);color:inherit;opacity:0.75;">🏖️ Beach detail</a><a href="https://brazil-2026.pages.dev/" style="font-size:0.68rem;font-weight:600;text-decoration:none;padding:4px 10px;border-radius:999px;border:1px solid rgba(128,128,128,0.4);color:inherit;opacity:0.75;">🇧🇷 Brazil ’26 trip</a></div>
+  <div class="xnav">
+    <a class="here" href="https://chadurban.github.io/summer-2027/">🗺️ 2027 Hub</a>
+    <a href="https://chadurban.github.io/brazil-xmas-tracker/">🎄 Xmas ’26</a>
+    <a href="https://chadurban.github.io/flight-tracker/">🗾 Japan detail</a>
+    <a href="https://beach-2027.pages.dev/">🏖️ Beach detail</a>
+    <a href="https://brazil-2026.pages.dev/">🇧🇷 Brazil ’26 trip</a>
+  </div>
+
   <header>
-    <h1>🗺️ 2027 Trips — Where To?</h1>
-    <div class="sub">Total trip cost, head to head · summer adventure vs. beach week · anchored to your Brazil 2026 spend</div>
+    <h1>🗺️ 2027 Trips — Flight Watch</h1>
+    <div class="sub">Best flight deal + live alerts per trip · cash vs points · total-cost compare</div>
   </header>
   <div class="updated" id="updated"></div>
 
+  <!-- ALERTS HERO -->
+  <section class="alertHero">
+    <div class="lbl">🔔 Alerts — what fired</div>
+    <div id="alertHero"><div class="noAlert">Checking your trackers…</div></div>
+  </section>
+
+  <div class="lbl">Compare settings</div>
   <div class="controls">
     <span>Travelers
       <span class="seg" id="partySeg"><button data-p="3" class="active">3</button><button data-p="4">4</button></span>
@@ -69,25 +155,34 @@
     </span>
   </div>
 
+  <div class="lbl">Pick a trip</div>
   <div class="nav" id="nav"></div>
   <div id="body"></div>
 </div>
 
+<!-- hub award data — injected daily by scan.py (id/type must not change) -->
 <script id="cmp-data" type="application/json">{"lastUpdated":"2026-07-17T11:01:23Z","window":"early\u2013mid June 2027 \u00b7 7\u201315 nights","dests":[{"key":"japan","name":"Japan / Korea","hop":null,"gateways":"HND/ICN/NRT","cabins":{"business":{"n":3,"p3":{"ow":108500,"route":"SFO\u2192NRT (1-stop)","seats":3,"date":"2027-06-08","direct":false,"airlines":"AM, KL","via":"UR/MR \u2192 Flying Blue","ur":true},"p4":{"ow":108500,"route":"IAD\u2192NRT (1-stop)","seats":9,"date":"2027-06-01","direct":false,"airlines":"AF, AM, KL","via":"UR/MR \u2192 Flying Blue","ur":true}},"premium":{"n":8,"p3":{"ow":110000,"route":"SEA\u2192HND","seats":9,"date":"2027-06-01","direct":true,"airlines":"DL","via":"UR \u2192 Virgin (Delta)","ur":true},"p4":{"ow":110000,"route":"SEA\u2192HND","seats":9,"date":"2027-06-01","direct":true,"airlines":"DL","via":"UR \u2192 Virgin (Delta)","ur":true}}}},{"key":"brazil","name":"Brazil \u00b7 Vit\u00f3ria","hop":"+ VIX hop (~$60\u2013130)","gateways":"CNF/GIG/GRU/VCP","cabins":{"business":{"n":8,"p3":{"ow":58000,"route":"JFK\u2192GIG (1-stop)","seats":4,"date":"2027-06-08","direct":false,"airlines":"CM","via":"UR/MR \u2192 Flying Blue","ur":true},"p4":{"ow":58000,"route":"JFK\u2192GIG (1-stop)","seats":4,"date":"2027-06-08","direct":false,"airlines":"CM","via":"UR/MR \u2192 Flying Blue","ur":true}},"premium":{"n":8,"p3":{"ow":55000,"route":"IAD\u2192GRU","seats":9,"date":"2027-06-02","direct":true,"airlines":"UA","via":"UR \u2192 United","ur":true},"p4":{"ow":55000,"route":"IAD\u2192GRU","seats":9,"date":"2027-06-02","direct":true,"airlines":"UA","via":"UR \u2192 United","ur":true}}}},{"key":"iberia","name":"Iberia+Med \u00b7 Lisbon\u2192Nice (Kami's route)","hop":null,"gateways":"LIS/NCE","cabins":{"business":{"n":6,"p3":{"ow":128500,"route":"BOS\u2192LIS (1-stop)","seats":7,"date":"2027-06-16","direct":false,"airlines":"KL","via":"UR/MR \u2192 Flying Blue","ur":true},"p4":{"ow":128500,"route":"BOS\u2192LIS (1-stop)","seats":7,"date":"2027-06-16","direct":false,"airlines":"KL","via":"UR/MR \u2192 Flying Blue","ur":true}},"premium":{"n":7,"p3":{"ow":67500,"route":"JFK\u2192LIS (1-stop)","seats":9,"date":"2027-06-01","direct":false,"airlines":"AF, KL","via":"UR/MR \u2192 Flying Blue","ur":true},"p4":{"ow":67500,"route":"JFK\u2192LIS (1-stop)","seats":9,"date":"2027-06-01","direct":false,"airlines":"AF, KL","via":"UR/MR \u2192 Flying Blue","ur":true}}}}],"errors":[]}</script>
+
 <script>
+"use strict";
 const LIVE = (()=>{ try{ return JSON.parse(document.getElementById('cmp-data').textContent||'{}'); }catch(e){ return {}; } })();
-// live award by destination key (from the daily scanner: japan/brazil/iberia)
 const AWARD = {}; (LIVE.dests||[]).forEach(d=>AWARD[d.key]=d);
 
-// --- cost model: anchored to Brazil 2026 actuals (food ~$115/day family; Vitória lodging ~$0–90;
-//     real premium-econ ~$2,165/pp). Beach nightly from the resort-lens research. All editable estimates. ---
+// ---- sibling trackers (cross-fetched live; CORS-open GitHub Pages) ----
+const TRACKER = {
+  japan: 'https://chadurban.github.io/flight-tracker/data.json',
+  xmas:  'https://chadurban.github.io/brazil-xmas-tracker/data.json'
+};
+let TRK = { japan:null, xmas:null };
+
+// ---- cost model: anchored to Brazil 2026 actuals (editable estimates) ----
 const D = {
   japan:    {name:"Japan / Korea", type:"summer", emoji:"🗾", flightPP:5000, lodgeN:280, foodD:160, exc:700, ground:300,
              note:"Tokyo + Kyoto. High lodging + food; flights mid. Premium award space loads over the coming weeks."},
   brazil:   {name:"Brazil · Vitória", type:"summer", emoji:"🇧🇷", flightPP:4600, lodgeN:90, foodD:115, exc:400, ground:200, lodgeAlt:0,
              note:"With your brother (4). Real Jun-2026 anchor. Lodging drops to ~$0 if Kami's parents host — toggle below. Cheapest non-flight trip."},
   iberia:   {name:"Iberia+Med · Lisbon→Nice", type:"summer", emoji:"🇵🇹", flightPP:3700, lodgeN:190, foodD:110, exc:500, ground:250,
-             note:"Kami's route: Lisbon 4n → Seville 3n → Barcelona 3n → Nice 4n (14n). Flights scan the ENDPOINTS only — into LIS or NCE, home from the other (route runs either direction; Seville/Barcelona are ground legs). Nice has summer US nonstops: Delta JFK/BOS, United EWR (one-ticket to CHS), La Compagnie all-business EWR. Cheapest business award (~75–88K saver) AND serious business cash deals via the Chase portal — flights are the bargain here."},
+             note:"Kami's route: Lisbon 4n → Seville 3n → Barcelona 3n → Nice 4n (14n). Flights scan the ENDPOINTS only — into LIS or NCE, home from the other. Cheapest business award (~75–88K saver) AND serious business cash deals via the Chase portal — flights are the bargain here."},
   aruba:    {name:"Aruba (beach)", type:"beach", emoji:"🏖️", flightPP:1000, lodgeN:570, foodD:185, exc:400, ground:320,
              note:"⭐ Truest West Bay replica — Palm Beach resort strip, walkable dining, shortest flight. Cheapest flights, priciest lodging."},
   crete:    {name:"Crete · Chania (beach)", type:"beach", emoji:"🏖️", flightPP:3900, lodgeN:330, foodD:105, exc:400, ground:300,
@@ -97,44 +192,180 @@ const D = {
 };
 const ORDER = ["japan","brazil","iberia","aruba","crete","sardinia"];
 
-let party = 3, nights = 10, pay = "points";
+// Trips that have a live alert/deal tracker feeding this hub
+const TRACKED_TRIP = {
+  japan: { src:'japan', detail:'https://chadurban.github.io/flight-tracker/' },
+  xmas:  { src:'xmas',  detail:'https://chadurban.github.io/brazil-xmas-tracker/', emoji:'🎄',
+           name:'Brazil · Christmas ’26', sub:'Dec 2026 · conditional (if Kami\'s parents buy in Brazil) · cash + award watch' }
+};
 
+let party = 3, nights = 10, pay = "points", current = "summary";
 const $ = s => document.querySelector(s);
 const money = n => '$' + Math.round(n).toLocaleString();
-const k = n => n>=1000 ? (n/1000).toFixed(0)+'K' : String(n);
+const kMiles = n => n>=1000 ? Math.round(n/1000)+'K' : String(n);
+const strip = s => String(s==null?'':s).replace(/<[^>]*>/g,'');
+const esc = s => String(s==null?'':s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 
-function lodge(d){ return (pay==='points' && false) ? 0 : (d._freeLodge ? 0 : d.lodgeN); }
+// ================= ALERTS =================
+const URG = { gold:3, red:3, green:2, yellow:1 };
+function collectAlerts(){
+  const out = [];
+  const push = (trip, emoji, name, a) => {
+    if(!a || !a.message) return;
+    out.push({ trip, emoji, name, type:a.type||'green', urg:URG[a.type]||1,
+      message:a.message, time:a.time||'', ts:Date.parse((a.time||'').replace(' ','T'))||0 });
+  };
+  if(TRK.xmas && Array.isArray(TRK.xmas.alerts))
+    TRK.xmas.alerts.slice(0,4).forEach(a=>push('xmas','🎄','Brazil · Christmas ’26',a));
+  if(TRK.japan && Array.isArray(TRK.japan.alerts))
+    TRK.japan.alerts.slice(0,4).forEach(a=>push('japan','🗾','Japan / Korea',a));
+  // most actionable + newest first
+  out.sort((x,y)=> (y.urg-x.urg) || (y.ts-x.ts));
+  return out;
+}
+function tripHasHotAlert(trip){
+  return collectAlerts().some(a=>a.trip===trip && a.urg>=3);
+}
+function pctContext(msg){ const m = strip(msg).match(/(\d+)%\s*(below|above)/i); return m?`${m[1]}% ${m[2].toLowerCase()} norm`:null; }
+
+function renderAlertHero(){
+  const host = $('#alertHero');
+  const alerts = collectAlerts();
+  if(!TRK.japan && !TRK.xmas){ host.innerHTML = '<div class="noAlert">Checking your trackers…</div>'; return; }
+  if(!alerts.length){ host.innerHTML = '<div class="noAlert">No alerts from your trackers right now. Scanned daily.</div>'; return; }
+  const feat = alerts[0];
+  const ctx = pctContext(feat.message);
+  const featCls = feat.urg>=3 ? (feat.type==='green'?'green':'') : 'green';
+  let html = `<div class="aFeat ${featCls}">
+    <div class="top"><span class="who">${feat.emoji} ${esc(feat.name)}</span><span class="when">${esc(feat.time)}</span></div>
+    <div class="msg">${feat.message}</div>
+    <div class="act">
+      <button class="primary" onclick="goTrip('${feat.trip}')">View ${esc(feat.name.split(' ')[0])} →</button>
+      <a href="${TRACKED_TRIP[feat.trip].detail}" target="_blank" rel="noopener">Open tracker ↗</a>
+      ${ctx?`<span class="chip hot" style="align-self:center">🔥 ${ctx}</span>`:''}
+    </div></div>`;
+  // diversify the feed: each other tracked trip's newest alert first, then fill by recency
+  const rest = [], seen = new Set([feat]), newestByTrip = {};
+  alerts.forEach(a=>{ if(a!==feat && !newestByTrip[a.trip]) newestByTrip[a.trip]=a; });
+  Object.values(newestByTrip).forEach(a=>{ if(rest.length<3 && !seen.has(a)){ rest.push(a); seen.add(a); } });
+  alerts.forEach(a=>{ if(rest.length<3 && !seen.has(a)){ rest.push(a); seen.add(a); } });
+  if(rest.length){
+    html += '<div class="aMore">' + rest.map((a,i)=>{
+      const col = a.type==='gold'?'var(--gold)':a.type==='green'?'var(--accent)':a.type==='red'?'var(--red)':'var(--dim)';
+      const head = (strip(a.message).match(/POUNCE[^.]*\.?|TRACKED SAVER[^.]*\.?|[A-Z][^.]*\bFOUND\b[^.]*\.?/)||[strip(a.message)])[0];
+      return `<button class="aRow" onclick="toggleRow(this)"><span class="dot" style="background:${col}"></span>
+        <span class="t1"><span class="a">${a.emoji} ${esc(a.name)} · ${esc(a.time)}</span>
+        <span class="b">${esc(head.slice(0,120))}</span></span></button>
+        <div class="full" style="display:none"></div>`;
+    }).join('') + '</div>';
+  }
+  host.innerHTML = html;
+  // stash full messages for expansion
+  const rows = host.querySelectorAll('.aRow');
+  rest.forEach((a,i)=>{ if(rows[i]) rows[i]._full = a.message; });
+}
+window.toggleRow = function(btn){
+  const full = btn.nextElementSibling;
+  const open = btn.classList.toggle('open');
+  if(full){ if(open){ full.innerHTML = btn._full||''; full.style.display='block'; full.style.cssText='display:block;padding:2px 12px 12px 31px;font-size:0.84rem;color:var(--dim);line-height:1.55'; }
+            else full.style.display='none'; }
+};
+window.goTrip = function(trip){
+  current = (trip==='xmas') ? 'xmas' : trip;
+  buildNav(); render(); window.scrollTo({top:0,behavior:'smooth'});
+};
+
+// ================= PER-TRIP DEAL (cash vs points) =================
+function verdictFor(trip){
+  if(trip==='xmas'){
+    if(tripHasHotAlert('xmas')) return {cls:'v-gold', label:'🔥 Cash cheap — act'};
+    if(TRK.xmas && TRK.xmas.bestOption) return {cls:'v-dim', label:'👀 Watch'};
+    return {cls:'v-dim', label:'⏳ Waiting'};
+  }
+  if(trip==='japan'){
+    const al = (TRK.japan&&TRK.japan.alerts||[]).map(a=>a.message).join(' ');
+    if(/TRACKED SAVER|Booking trigger MET/i.test(al)) return {cls:'v-green', label:'🟢 Saver found — book'};
+    if(AWARD.japan) return {cls:'v-dim', label:'👀 Watch'};
+    return {cls:'v-dim', label:'⏳ Waiting'};
+  }
+  // summer brazil / iberia — award loaded via hub scanner
+  if(AWARD[trip]) return {cls:'v-dim', label:'👀 Watch (award loaded)'};
+  return {cls:'v-dim', label:'—'};
+}
+
+function awardRT(key){ // hub cmp-data award → RT total miles for party, pick cheaper cabin
+  const a = AWARD[key]; if(!a) return null;
+  const pick = c => { const o=(a.cabins[c]||{})[party===3?'p3':'p4']; return o?{cab:c,ow:o.ow,route:o.route,seats:o.seats,date:o.date,via:o.via,ur:o.ur}:null; };
+  const b = pick('business'), p = pick('premium');
+  const opts = [b,p].filter(Boolean); if(!opts.length) return null;
+  opts.forEach(o=>o.rt=o.ow*2*party);
+  opts.sort((x,y)=>x.rt-y.rt);
+  return opts[0];
+}
+
+function dealCard(trip){
+  // trip is a hub key (japan/brazil/iberia/...) OR 'xmas'
+  const v = verdictFor(trip);
+  let pointsHtml='', cashHtml='', metaHtml='', ctx=null, bestSide='';
+
+  if(trip==='xmas' && TRK.xmas){
+    const bo = TRK.xmas.bestOption && TRK.xmas.bestOption.premium;
+    const bc = TRK.xmas.bestCash && TRK.xmas.bestCash.cabins && TRK.xmas.bestCash.cabins.premium;
+    if(bo) pointsHtml = `<div class="big">${bo.totalMiles.toLocaleString()} mi <span class="sm" style="display:inline">+ ${money(bo.totalExtraCash)}</span></div>
+      <div class="sm">${esc(bo.outPath||'')}<br>${esc(bo.outDate)} → ${esc(bo.retDate)} · ${bo.outSeats}+ seats · premium econ</div>`;
+    if(bc) cashHtml = `<div class="big">${money(bc.doorToDoorTotal)}</div>
+      <div class="sm">${esc(bc.path||'')} · ${bc.stops} stop · ${esc((bc.carriers||[]).join(', '))}<br>door-to-door for ${TRK.xmas.bestCash.pax||3}, premium econ</div>`;
+    const hot = collectAlerts().find(a=>a.trip==='xmas'&&a.urg>=3);
+    ctx = hot ? pctContext(hot.message) : null;
+    bestSide = 'cash'; // the pounce is on the cash side
+  } else if(trip==='japan'){
+    const aw = awardRT('japan');
+    const jd = ((TRK.japan&&TRK.japan.bestDeals)||[]).slice().sort((a,b)=>(b.rating||0)-(a.rating||0))[0];
+    if(aw) pointsHtml = `<div class="big">${kMiles(aw.rt)} mi</div><div class="sm">${esc(aw.route)} · ${aw.seats} st · ${esc(aw.cab)}<br><span class="${aw.ur?'ur':'nour'}">${esc(aw.via)}</span></div>`;
+    else if(jd) pointsHtml = `<div class="big">${esc(jd.points||'')}</div><div class="sm">${esc(jd.route)} · ${esc(jd.airline)}</div>`;
+    cashHtml = `<div class="big">${money(D.japan.flightPP*party)}</div><div class="sm">est. ${money(D.japan.flightPP)}/pp RT · Jun-27 fares not on sale yet</div>`;
+    if(jd && jd.rating!=null) ctx = '★ '+jd.rating.toFixed(1)+'/5 best award';
+    bestSide = 'points';
+  } else {
+    // summer brazil / iberia (award via hub) or beach (cash estimate only)
+    const aw = awardRT(trip);
+    if(aw){ pointsHtml = `<div class="big">${kMiles(aw.rt)} mi</div><div class="sm">${esc(aw.route)} · ${aw.seats} st · ${esc(aw.cab)}<br><span class="${aw.ur?'ur':'nour'}">${esc(aw.via)}</span></div>`; bestSide='points'; }
+    else pointsHtml = `<div class="big" style="color:var(--faint)">—</div><div class="sm">not on the daily award scanner</div>`;
+    cashHtml = `<div class="big">${money((D[trip]||{}).flightPP*party)}</div><div class="sm">est. ${money((D[trip]||{}).flightPP)}/pp RT (cash)</div>`;
+  }
+
+  return `<div class="deal2">
+      <div class="col ${bestSide==='points'?'best':''}"><div class="k">✈️ On points</div>${pointsHtml||'<div class="big" style="color:var(--faint)">—</div>'}</div>
+      <div class="col ${bestSide==='cash'?'best':''}"><div class="k">💵 As cash</div>${cashHtml||'<div class="big" style="color:var(--faint)">—</div>'}</div>
+    </div>
+    <div class="dealMeta"><span class="badge ${v.cls}">${v.label}</span>${ctx?`<span class="chip ${/below/.test(ctx)?'good':''}">${esc(ctx)}</span>`:''}</div>`;
+}
+
+// ================= COST MODEL (kept) =================
 function total(key){
   const d = D[key];
   const lodgeN = d._freeLodge ? 0 : d.lodgeN;
-  const flights = pay==='cash' ? d.flightPP*party : 0;   // on points => $0 cash to flights
+  const flights = pay==='cash' ? d.flightPP*party : 0;
   const onground = lodgeN*nights + d.foodD*nights + d.exc + d.ground;
-  return { flights, lodging:lodgeN*nights, food:d.foodD*nights, exc:d.exc, ground:d.ground, onground, grand: flights+onground,
-           flightValue:d.flightPP*party };
-}
-
-function awardLine(key){
-  const a = AWARD[key];
-  if(!a) return '<div class="fl muted">Flights: estimate ' + money(D[key].flightPP) + '/pp round-trip (cash). Not on the daily award scanner.</div>';
-  const cell = (cabObj, cab) => {
-    const pk = (cabObj||{})[party===3?'p3':'p4'];
-    if(!pk) return `<span class="muted">${cab}: loading (windows opening)</span>`;
-    const rt = pk.ow*2, tot = rt*party;
-    return `<b>${cab}</b>: ${k(tot)} pts <span class="muted">(${k(pk.ow)} ow · ${pk.route} · ${pk.seats} st · <span class="${pk.ur?'ur':'nour'}">${pk.via}</span>)</span>`;
-  };
-  return `<div class="fl">✈️ ${cell(a.cabins.business,'Business')}</div><div class="fl">✈️ ${cell(a.cabins.premium,'Premium')}</div>
-          <div class="fl muted">Est. cash-equiv ${money(D[key].flightPP)}/pp RT · used in the total when "as cash" is selected.</div>`;
+  return { flights, lodging:lodgeN*nights, food:d.foodD*nights, exc:d.exc, ground:d.ground, grand:flights+onground, flightValue:d.flightPP*party };
 }
 
 function renderDest(key){
   const d = D[key], t = total(key);
   const freeToggle = key==='brazil'
     ? `<label style="font-size:0.8rem;color:var(--dim);display:block;margin-top:8px;cursor:pointer"><input type="checkbox" id="freeLodge" ${d._freeLodge?'checked':''}> Kami's parents host → lodging $0</label>` : '';
+  const detail = (TRACKED_TRIP[key===''?'':'']||{});
+  const trackLink = key==='japan' ? `<a class="trackLink" href="https://chadurban.github.io/flight-tracker/" target="_blank" rel="noopener">🗾 Open the Japan award tracker ↗</a>` : '';
   $('#body').innerHTML = `
     <div class="card">
       <h2>${d.emoji} ${d.name} <span class="pill">${d.type==='summer'?'summer adventure':'beach week'}</span></h2>
+      <div class="h-sub">Best flight deal · ${party} travelers</div>
+      ${dealCard(key)}
+      ${trackLink}
+    </div>
+    <div class="card">
+      <h2>💰 Trip cost</h2>
       <div class="h-sub">${nights} nights · ${party} travelers · flights ${pay==='points'?'on points ($0 cash)':'as cash'}</div>
-      <div class="flightbox">${awardLine(key)}</div>
       <div class="line"><span class="lbl">Flights ${pay==='points'?'(paid with points)':'(cash, '+party+' pax)'}</span><span class="val">${pay==='points'?'$0 cash':money(t.flights)}</span></div>
       <div class="line"><span class="lbl">Lodging · ${money(d._freeLodge?0:d.lodgeN)}/night × ${nights}</span><span class="val">${money(t.lodging)}</span></div>
       <div class="line"><span class="lbl">Food · ${money(d.foodD)}/day × ${nights}</span><span class="val">${money(t.food)}</span></div>
@@ -147,49 +378,61 @@ function renderDest(key){
   if(key==='brazil'){ const c=$('#freeLodge'); if(c) c.addEventListener('change',()=>{ D.brazil._freeLodge=c.checked; renderDest('brazil'); }); }
 }
 
+function renderXmas(){
+  const meta = TRACKED_TRIP.xmas;
+  const v = verdictFor('xmas');
+  let extra = '';
+  if(TRK.xmas && TRK.xmas.window){ const w=TRK.xmas.window; extra = `<div class="h-sub">Out ${esc(w.outDepart)} · return ${esc(w.retDepart)} · ${esc(w.nights)} nights</div>`; }
+  $('#body').innerHTML = `
+    <div class="card">
+      <h2>${meta.emoji} ${esc(meta.name)} <span class="pill">conditional</span></h2>
+      <div class="h-sub">${esc(meta.sub)}</div>
+      ${extra}
+      ${dealCard('xmas')}
+      <a class="trackLink" href="${meta.detail}" target="_blank" rel="noopener">🎄 Open the full Christmas tracker ↗</a>
+      <div class="note">Only happens if Kami's parents buy a place in Brazil (decided late 2026). The daily cash watch pounces when premium-econ drops below its rolling norm — that's the alert up top. Points side is the best award pairing found so far.</div>
+    </div>`;
+}
+
 function renderSummary(){
   const rows = ORDER.map(key=>({key, d:D[key], t:total(key)})).sort((a,b)=>a.t.grand-b.t.grand);
   const min = rows[0].t.grand;
   $('#body').innerHTML = `
     <div class="card">
-      <h2>🏁 Best Value — ${pay==='points'?'cash out-of-pocket':'total trip cost'}</h2>
-      <div class="h-sub">${nights} nights · ${party} travelers · flights ${pay==='points'?'on points':'paid cash'} · ranked cheapest first</div>
-      <table><thead><tr><th>Destination</th><th>Type</th><th class="num">Lodging</th><th class="num">Food</th><th class="num">Other</th><th class="num">Flights</th><th class="num">${pay==='points'?'Cash o.o.p.':'Total'}</th></tr></thead>
+      <h2>🏁 Best value — ${pay==='points'?'cash out-of-pocket':'total trip cost'}</h2>
+      <div class="h-sub">${nights} nights · ${party} travelers · flights ${pay==='points'?'on points':'paid cash'} · cheapest first</div>
+      <table><thead><tr><th>Destination</th><th class="num">Lodging</th><th class="num">Food</th><th class="num">Other</th><th class="num">Flights</th><th class="num">${pay==='points'?'Cash o.o.p.':'Total'}</th></tr></thead>
       <tbody>${rows.map(r=>`<tr class="${r.t.grand===min?'win':''}">
-        <td><b>${r.d.emoji} ${r.d.name.split(' · ')[0].replace(' (beach)','')}</b>${r.t.grand===min?'<span class="badge">★ cheapest</span>':''}</td>
-        <td><span class="pill">${r.d.type==='summer'?'adventure':'beach'}</span></td>
+        <td><b>${r.d.emoji} ${r.d.name.split(' · ')[0].replace(' (beach)','')}</b>${r.t.grand===min?'<span class="badge v-green" style="margin-left:6px">★ cheapest</span>':''}</td>
         <td class="num">${money(r.t.lodging)}</td>
         <td class="num">${money(r.t.food)}</td>
         <td class="num">${money(r.t.exc+r.t.ground)}</td>
         <td class="num">${pay==='points'?'<span class="ur">pts</span>':money(r.t.flights)}</td>
         <td class="num tot">${money(r.t.grand)}</td></tr>`).join('')}</tbody></table>
-      <div class="note">Costs anchored to your <b>real Brazil 2026 spend</b> (food ~$115/day, Vitória lodging ~$0–90) and the resort-lens research for the beach picks — all editable estimates. <b>"On points"</b> shows cash out-of-pocket with flights covered by UR/MR (flight value still differs by destination — see each tab); <b>"as cash"</b> adds estimated flight cash so you can compare apples to apples. "As cash" = the <b>smart booking</b>, risk-tiered by the positioning leg: a hub deal de-risked by how often that leg flies — <b>CHS→ATL</b> (frequent) is safe same-day; <b>CHS→BOS/JFK</b> (less frequent) gets positioned a day early with a hotel night. That captures the deal (~$3.1k Lisbon + one ticket + a hotel) and beats the single-ticket premium handily (CHS→LIS one-ticket is ~$5.1k; positioning saves ~$5k for a family of 3). A single CHS-origin ticket is the fallback when no deal beats it. When Jun-2027 cash loads (~Aug 2026), deal-detection shows BOTH totals — single-ticket vs deal+buffer — and the recommended play.</div>
-    </div>` + xmasTile();
+      <div class="note">Costs anchored to your <b>real Brazil 2026 spend</b> (food ~$115/day, Vitória lodging ~$0–90) and resort-lens research for the beach picks — all editable estimates. <b>"On points"</b> = cash out-of-pocket with flights on UR/MR; <b>"as cash"</b> adds estimated flight cash to compare apples-to-apples. Tap a trip above for its best flight deal + alerts.</div>
+    </div>`;
 }
 
-let XMAS=null;
-fetch('https://chadurban.github.io/brazil-xmas-tracker/data.json').then(r=>r.ok?r.json():null).then(d=>{ XMAS=d; if(current==='summary')render(); }).catch(()=>{});
-function xmasTile(){
-  let body = 'Conditional — only happens if Kami\'s parents buy a place in Brazil (decided late in the year). Scanned daily; alerts push to your phone.';
-  if(XMAS && XMAS.bestOption && XMAS.bestOption.premium){
-    const p = XMAS.bestOption.premium;
-    body = `Best premium pair now: <b>${p.totalMiles.toLocaleString()} mi + ~$${p.totalExtraCash}</b> for 3 (${p.outDate} → ${p.retDate}${p.tier==='ideal'?', 3+ seats':''}). Conditional — only if Kami's parents buy in Brazil. Scanned daily; alerts push to your phone.`;
-  }
-  return `<div class="card"><h2>🎄 Christmas 2026 — Brazil · Vitória <span class="pill">conditional</span></h2>
-    <div class="h-sub">${body}</div>
-    <a href="https://chadurban.github.io/brazil-xmas-tracker/" style="font-size:0.8rem;color:var(--accent);font-weight:600;text-decoration:none;">Open the full Christmas tracker →</a></div>`;
+function render(){
+  if(current==='summary') renderSummary();
+  else if(current==='xmas') renderXmas();
+  else renderDest(current);
 }
-
-let current = 'summary';
-function render(){ current==='summary' ? renderSummary() : renderDest(current); }
 
 function buildNav(){
-  const items = [['summary','🏁 Summary'], ...ORDER.map(key=>[key, D[key].emoji+' '+D[key].name.split(' · ')[0].split(' (')[0]])];
-  $('#nav').innerHTML = items.map(([key,label])=>`<button data-k="${key}" class="${key===current?'active':''}">${label}</button>`).join('');
+  const items = [['summary','🏁 Summary'],
+    ...ORDER.map(key=>[key, D[key].emoji+' '+D[key].name.split(' · ')[0].split(' (')[0]]),
+    ['xmas','🎄 Brazil Xmas']];
+  $('#nav').innerHTML = items.map(([key,label])=>{
+    const hot = (key==='xmas'&&tripHasHotAlert('xmas')) || (key==='japan'&&tripHasHotAlert('japan'));
+    const dot = hot ? `<span class="ndot" style="background:${key==='xmas'?'var(--gold)':'var(--accent)'}"></span>` : '';
+    return `<button data-k="${key}" class="${key===current?'active':''}">${label}${dot}</button>`;
+  }).join('');
   document.querySelectorAll('#nav button').forEach(b=>b.addEventListener('click',()=>{
-    current=b.dataset.k; document.querySelectorAll('#nav button').forEach(x=>x.classList.remove('active')); b.classList.add('active'); render();
+    current=b.dataset.k; buildNav(); render();
   }));
 }
+
 document.querySelectorAll('#partySeg button').forEach(b=>b.addEventListener('click',()=>{
   document.querySelectorAll('#partySeg button').forEach(x=>x.classList.remove('active')); b.classList.add('active'); party=+b.dataset.p; render();
 }));
@@ -197,19 +440,28 @@ document.querySelectorAll('#paySeg button').forEach(b=>b.addEventListener('click
   document.querySelectorAll('#paySeg button').forEach(x=>x.classList.remove('active')); b.classList.add('active'); pay=b.dataset.pay; render();
 }));
 $('#nights').addEventListener('input', e=>{ nights=+e.target.value; $('#nightsLbl').textContent=nights; render(); });
-$('#updated').textContent = LIVE.lastUpdated ? 'Flight data updated '+new Date(LIVE.lastUpdated).toLocaleString() : '';
-buildNav(); render();
+$('#updated').textContent = LIVE.lastUpdated ? 'Hub award data updated '+new Date(LIVE.lastUpdated).toLocaleString() : '';
+
+buildNav(); render(); renderAlertHero();
+
+// pull sibling trackers, then refresh the alert-aware bits
+function loadTracker(key){
+  return fetch(TRACKER[key], {cache:'no-store'}).then(r=>r.ok?r.json():null).then(d=>{ TRK[key]=d; }).catch(()=>{ TRK[key]=null; });
+}
+Promise.all([loadTracker('japan'), loadTracker('xmas')]).then(()=>{
+  renderAlertHero(); buildNav(); render();
+});
 </script>
 <script>
-/* staleness monitor: warn if the daily scan has not refreshed in >2 days (catches a silently-down scanner) */
+/* staleness monitor: warn if the hub's daily scan has not refreshed in >2 days */
 (function(){ try{
-  var el=document.getElementById('live-data')||document.getElementById('cmp-data'); if(!el)return;
+  var el=document.getElementById('cmp-data'); if(!el)return;
   var d=JSON.parse(el.textContent||'{}'); if(!d.lastUpdated)return;
   var days=Math.floor((Date.now()-new Date(d.lastUpdated).getTime())/86400000);
   if(days>2){ var b=document.createElement('div');
-    b.style.cssText='background:#ff6b6b;color:#0f1117;text-align:center;padding:9px 12px;font-weight:700;font-size:0.82rem;border-radius:8px;margin:0 16px 12px;';
-    b.textContent='\u26a0 Data is '+days+' days old \u2014 the daily scanner may be down (check ~/Library/Logs).';
-    var c=document.querySelector('.wrap')||document.querySelector('.container')||document.body; c.insertBefore(b,c.firstChild);
+    b.style.cssText='background:#ff6b6b;color:#0f1117;text-align:center;padding:9px 12px;font-weight:700;font-size:0.82rem;border-radius:8px;margin:0 15px 12px;';
+    b.textContent='⚠ Hub data is '+days+' days old — the daily scanner may be down.';
+    var c=document.querySelector('.wrap')||document.body; c.insertBefore(b,c.firstChild);
   }
 }catch(e){} })();
 </script>
