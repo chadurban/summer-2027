@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-18T11:01:12Z",
+  "lastUpdated": "2026-07-19T11:01:16Z",
   "window": "early\u2013mid June 2027 \u00b7 7\u201315 nights",
   "dests": [
     {
@@ -9,24 +9,24 @@
       "gateways": "HND/ICN/NRT",
       "cabins": {
         "business": {
-          "n": 3,
+          "n": 8,
           "p3": {
-            "ow": 108500,
-            "route": "SFO\u2192NRT (1-stop)",
-            "seats": 3,
-            "date": "2027-06-08",
-            "direct": false,
-            "airlines": "AM, KL",
-            "via": "UR/MR \u2192 Flying Blue",
-            "ur": true
+            "ow": 75000,
+            "route": "ORD\u2192NRT",
+            "seats": 9,
+            "date": "2027-06-15",
+            "direct": true,
+            "airlines": "AA",
+            "via": "Alaska miles",
+            "ur": false
           },
           "p4": {
-            "ow": 95000,
-            "route": "LAX\u2192ICN (1-stop)",
+            "ow": 75000,
+            "route": "ORD\u2192NRT",
             "seats": 9,
-            "date": "2027-06-05",
-            "direct": false,
-            "airlines": "AS",
+            "date": "2027-06-15",
+            "direct": true,
+            "airlines": "AA",
             "via": "Alaska miles",
             "ur": false
           }
@@ -65,24 +65,24 @@
         "business": {
           "n": 8,
           "p3": {
-            "ow": 58000,
-            "route": "JFK\u2192GIG (1-stop)",
-            "seats": 4,
-            "date": "2027-06-08",
-            "direct": false,
-            "airlines": "CM",
-            "via": "UR/MR \u2192 Flying Blue",
-            "ur": true
+            "ow": 50000,
+            "route": "MIA\u2192GRU",
+            "seats": 9,
+            "date": "2027-06-09",
+            "direct": true,
+            "airlines": "AA",
+            "via": "Alaska miles",
+            "ur": false
           },
           "p4": {
-            "ow": 58000,
-            "route": "JFK\u2192GIG (1-stop)",
-            "seats": 4,
-            "date": "2027-06-08",
-            "direct": false,
-            "airlines": "CM",
-            "via": "UR/MR \u2192 Flying Blue",
-            "ur": true
+            "ow": 50000,
+            "route": "MIA\u2192GRU",
+            "seats": 9,
+            "date": "2027-06-09",
+            "direct": true,
+            "airlines": "AA",
+            "via": "Alaska miles",
+            "ur": false
           }
         },
         "premium": {
@@ -140,25 +140,25 @@
           }
         },
         "premium": {
-          "n": 5,
+          "n": 6,
           "p3": {
-            "ow": 67500,
-            "route": "JFK\u2192LIS (1-stop)",
+            "ow": 50000,
+            "route": "IAD\u2192NCE",
             "seats": 9,
-            "date": "2027-06-01",
-            "direct": false,
-            "airlines": "AF, KL",
-            "via": "UR/MR \u2192 Flying Blue",
+            "date": "2027-06-05",
+            "direct": true,
+            "airlines": "UA",
+            "via": "UR \u2192 United",
             "ur": true
           },
           "p4": {
-            "ow": 67500,
-            "route": "JFK\u2192LIS (1-stop)",
+            "ow": 50000,
+            "route": "IAD\u2192NCE",
             "seats": 9,
-            "date": "2027-06-01",
-            "direct": false,
-            "airlines": "AF, KL",
-            "via": "UR/MR \u2192 Flying Blue",
+            "date": "2027-06-05",
+            "direct": true,
+            "airlines": "UA",
+            "via": "UR \u2192 United",
             "ur": true
           }
         }
