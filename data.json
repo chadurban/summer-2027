@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-20T11:01:09Z",
+  "lastUpdated": "2026-07-21T11:01:17Z",
   "window": "early\u2013mid June 2027 \u00b7 7\u201315 nights",
   "dests": [
     {
@@ -20,7 +20,16 @@
             "via": "UR/MR \u2192 Flying Blue",
             "ur": true
           },
-          "p4": null
+          "p4": {
+            "ow": 108500,
+            "route": "IAD\u2192NRT (1-stop)",
+            "seats": 9,
+            "date": "2027-06-01",
+            "direct": false,
+            "airlines": "AF, AM, KL",
+            "via": "UR/MR \u2192 Flying Blue",
+            "ur": true
+          }
         },
         "premium": {
           "n": 8,
@@ -57,9 +66,9 @@
           "n": 8,
           "p3": {
             "ow": 50000,
-            "route": "MIA\u2192GRU",
+            "route": "JFK\u2192GRU",
             "seats": 9,
-            "date": "2027-06-09",
+            "date": "2027-06-15",
             "direct": true,
             "airlines": "AA",
             "via": "Alaska miles",
@@ -67,9 +76,9 @@
           },
           "p4": {
             "ow": 50000,
-            "route": "MIA\u2192GRU",
+            "route": "JFK\u2192GRU",
             "seats": 9,
-            "date": "2027-06-09",
+            "date": "2027-06-15",
             "direct": true,
             "airlines": "AA",
             "via": "Alaska miles",
