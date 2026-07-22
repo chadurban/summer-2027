@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-21T11:01:17Z",
+  "lastUpdated": "2026-07-22T11:01:17Z",
   "window": "early\u2013mid June 2027 \u00b7 7\u201315 nights",
   "dests": [
     {
@@ -11,24 +11,24 @@
         "business": {
           "n": 3,
           "p3": {
-            "ow": 108500,
-            "route": "SFO\u2192NRT (1-stop)",
-            "seats": 3,
-            "date": "2027-06-08",
-            "direct": false,
-            "airlines": "AM, KL",
-            "via": "UR/MR \u2192 Flying Blue",
-            "ur": true
-          },
-          "p4": {
-            "ow": 108500,
-            "route": "IAD\u2192NRT (1-stop)",
-            "seats": 9,
+            "ow": 95000,
+            "route": "SFO\u2192ICN (1-stop)",
+            "seats": 7,
             "date": "2027-06-01",
             "direct": false,
-            "airlines": "AF, AM, KL",
-            "via": "UR/MR \u2192 Flying Blue",
-            "ur": true
+            "airlines": "AS",
+            "via": "Alaska miles",
+            "ur": false
+          },
+          "p4": {
+            "ow": 95000,
+            "route": "SFO\u2192ICN (1-stop)",
+            "seats": 7,
+            "date": "2027-06-01",
+            "direct": false,
+            "airlines": "AS",
+            "via": "Alaska miles",
+            "ur": false
           }
         },
         "premium": {
@@ -66,7 +66,7 @@
           "n": 8,
           "p3": {
             "ow": 50000,
-            "route": "JFK\u2192GRU",
+            "route": "MIA\u2192GRU",
             "seats": 9,
             "date": "2027-06-15",
             "direct": true,
@@ -76,7 +76,7 @@
           },
           "p4": {
             "ow": 50000,
-            "route": "JFK\u2192GRU",
+            "route": "MIA\u2192GRU",
             "seats": 9,
             "date": "2027-06-15",
             "direct": true,
@@ -140,7 +140,7 @@
           }
         },
         "premium": {
-          "n": 5,
+          "n": 7,
           "p3": {
             "ow": 50000,
             "route": "IAD\u2192NCE",
